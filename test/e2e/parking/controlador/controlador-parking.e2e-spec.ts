@@ -16,6 +16,8 @@ import { ManejadorListarTicketsPorPlan } from 'src/aplicacion/parking/consulta/l
 import { ManejadorListarTicketsPorTipoVehiculo } from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador';
 import { ManejadorListarTicketsPorUsuario } from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador';
 import { ComandoRegistrarTicket } from 'src/aplicacion/parking/comando/registrar-ticket.comando';
+import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
+import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
 
 const sinonSandbox = createSandbox();
 
@@ -27,7 +29,7 @@ describe('Pruebas al controlador de Parking', () => {
 
   beforeAll(async () => {
     repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','validarDiasFestivos','registrosPorTipoPlan','registrosPorTipoVehiculo','registrosPorUsuario'], sinonSandbox);
-    daoParking = createStubObj<DaoParking>(['listar'],sinonSandbox)
+    daoParking = createStubObj<DaoParking>(['listar','buscar'],sinonSandbox)
     const moduleRef = await Test.createTestingModule({
       controllers:[ParkingController],
       providers: [
@@ -43,7 +45,8 @@ describe('Pruebas al controlador de Parking', () => {
         ManejadorListarTickets,
         ManejadorListarTicketsPorPlan,
         ManejadorListarTicketsPorTipoVehiculo,
-        ManejadorListarTicketsPorUsuario
+        ManejadorListarTicketsPorUsuario,
+        ManejadorMostrarTicket
       ]
     }).compile()
 
@@ -81,6 +84,8 @@ describe('Pruebas al controlador de Parking', () => {
     .expect(ticket);
   });
 
+
+
   it('debería crear un ticket', async () => {
     const ticket: ComandoRegistrarTicket = {
       "tipoVehiculo": 1,
@@ -94,6 +99,28 @@ describe('Pruebas al controlador de Parking', () => {
       .post('/parking').send(ticket)
       .expect(HttpStatus.CREATED)
     
+  });
+
+  it('debería buscar un ticket', async () => {
+    const ticket: ParkingDto = {
+      "tipoVehiculo": 1,
+      "idPlan": 4,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
+      "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
+      "matricula":"ABC123",
+      "id":1,
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
+    }
+
+    daoParking.buscar.returns(Promise.resolve(ticket))
+
+    const result = await request(app.getHttpServer())
+    .get('/parking/1')
+    .expect(HttpStatus.OK)
+    
+    expect(result.body.id).toBe(ticket.id)
+    expect(result.body.documentoUsuario).toBe(ticket.documentoUsuario)
   });
 
   it('debería fallar al intentar registrar un ticket un dia sabado', async () => {

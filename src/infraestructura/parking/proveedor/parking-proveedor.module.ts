@@ -12,6 +12,8 @@ import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tic
 import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador'
 import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador'
 import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador'
+import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
+
 @Module({
 
   imports: [TypeOrmModule.forFeature([ParkingEntidad])],
@@ -23,7 +25,8 @@ import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/lis
     ManejadorListarTickets,
     ManejadorListarTicketsPorUsuario,
     ManejadorListarTicketsPorTipoVehiculo,
-    ManejadorListarTicketsPorPlan
+    ManejadorListarTicketsPorPlan,
+    ManejadorMostrarTicket
   ],
   exports:[
     DaoParking,
@@ -32,7 +35,8 @@ import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/lis
     ManejadorListarTickets,
     ManejadorListarTicketsPorUsuario,
     ManejadorListarTicketsPorTipoVehiculo,
-    ManejadorListarTicketsPorPlan
+    ManejadorListarTicketsPorPlan,
+    ManejadorMostrarTicket
   ]
 })
 

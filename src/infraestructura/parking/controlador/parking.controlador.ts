@@ -5,7 +5,9 @@ import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tic
 import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador'
 import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador'
 import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador'
+
 import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto'
+import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 
 @Controller('parking')
 export class ParkingController {
@@ -14,7 +16,8 @@ export class ParkingController {
               private readonly _manejadorListarTickets: ManejadorListarTickets,
               private readonly _namejadorListarTicketsUsuario: ManejadorListarTicketsPorUsuario,
               private readonly _manejadorListarTickesVehiculo: ManejadorListarTicketsPorTipoVehiculo,
-              private readonly _manejadorListarTickesPlan: ManejadorListarTicketsPorPlan){}
+              private readonly _manejadorListarTickesPlan: ManejadorListarTicketsPorPlan,
+              private readonly _manejadorMostrarTicket: ManejadorMostrarTicket){}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -25,6 +28,11 @@ export class ParkingController {
   @Get()
   async listar(): Promise<ParkingDto[]>{
     return await this._manejadorListarTickets.ejecutar()
+  }
+
+  @Get('/:id')
+  async buscar(@Param() params: string, @Body() comandoRegistrarTicket: ComandoRegistrarTicket) {
+    return await this._manejadorMostrarTicket.ejecutar(+params["id"])
   }
 
   @Get('byUser/:id')
@@ -42,9 +50,4 @@ export class ParkingController {
     return await this._manejadorListarTickesPlan.ejecutar(+params["id"])
   }
 
-  @Put('/:id')
-  async actualizar(@Param() params: string, @Body() comandoRegistrarTicket: ComandoRegistrarTicket) {
-    console.log(params["id"])
-    return comandoRegistrarTicket
-  }
 }
