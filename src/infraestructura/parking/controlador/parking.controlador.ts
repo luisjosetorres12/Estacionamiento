@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UsePipes, ValidationPipe, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, UsePipes, ValidationPipe, Param, Put } from '@nestjs/common';
 import {ManejadorRegistroTicket} from 'src/aplicacion/parking/comando/registro-ticket.manejador'
 import {ComandoRegistrarTicket} from 'src/aplicacion/parking/comando/registrar-ticket.comando'
 import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tickets.manejador'
@@ -6,6 +6,7 @@ import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/
 import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador'
 import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador'
 import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto'
+
 @Controller('parking')
 export class ParkingController {
 
@@ -39,5 +40,11 @@ export class ParkingController {
   @Get('byPlan/:id')
   async listarPorTipoPlan(@Param() params: String) {
     return await this._manejadorListarTickesPlan.ejecutar(+params["id"])
+  }
+
+  @Put('/:id')
+  async actualizar(@Param() params: string, @Body() comandoRegistrarTicket: ComandoRegistrarTicket) {
+    console.log(params["id"])
+    return comandoRegistrarTicket
   }
 }

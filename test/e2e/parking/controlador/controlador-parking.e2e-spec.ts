@@ -81,6 +81,21 @@ describe('Pruebas al controlador de Parking', () => {
     .expect(ticket);
   });
 
+  it('debería crear un ticket', async () => {
+    const ticket: ComandoRegistrarTicket = {
+      "tipoVehiculo": 1,
+      "idPlan": 4,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
+      "matricula":"ABC123"
+    };
+
+    const response = await request(app.getHttpServer())
+      .post('/parking').send(ticket)
+      .expect(HttpStatus.CREATED)
+    
+  });
+
   it('debería fallar al intentar registrar un ticket un dia sabado', async () => {
     const ticket: ComandoRegistrarTicket = {
       "tipoVehiculo": 1,
@@ -98,6 +113,8 @@ describe('Pruebas al controlador de Parking', () => {
     expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
   });
 
+  
+
   it('debería fallar al intentar registrar un ticket un dia domingo', async () => {
     const ticket: ComandoRegistrarTicket = {
       "tipoVehiculo": 1,
@@ -114,4 +131,40 @@ describe('Pruebas al controlador de Parking', () => {
     expect(response.body.message).toBe(mensaje);
     expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
   });
+
+
+  it('debería fallar al intentar registrar un ticket con un tipo de vehiculo invalido', async () => {
+    const ticket: ComandoRegistrarTicket = {
+      "tipoVehiculo": 3,
+      "idPlan": 4,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
+      "matricula":"ABC123"
+    };
+    const mensaje = 'Tipo de vehiculo Invalido';
+
+    const response = await request(app.getHttpServer())
+      .post('/parking').send(ticket)
+      .expect(HttpStatus.BAD_REQUEST);
+    expect(response.body.message).toBe(mensaje);
+    expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
+  });
+
+  it('debería fallar al intentar registrar un ticket con un tipo de plan invalido', async () => {
+    const ticket: ComandoRegistrarTicket = {
+      "tipoVehiculo": 1,
+      "idPlan": 7,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
+      "matricula":"ABC123"
+    };
+    const mensaje = 'Tipo de plan Invalido';
+
+    const response = await request(app.getHttpServer())
+      .post('/parking').send(ticket)
+      .expect(HttpStatus.BAD_REQUEST);
+    expect(response.body.message).toBe(mensaje);
+    expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
+  });
+
 })

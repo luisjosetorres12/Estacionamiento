@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ParkingDto {
+  @ApiProperty()
+  id: number;
+  
   @ApiProperty({ example: 1 })
   tipoVehiculo: number;
 

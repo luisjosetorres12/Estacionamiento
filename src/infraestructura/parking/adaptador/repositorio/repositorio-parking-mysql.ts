@@ -14,17 +14,9 @@ export class RepositorioParkingMysql implements RepositorioParking {
   constructor(@InjectRepository(ParkingEntidad) private readonly repositorio: Repository<ParkingEntidad>,
               @InjectEntityManager() private readonly entityManager: EntityManager){}
 
-  async registrarTicket(parkigTicket: Parking){
-    let ticket = new ParkingEntidad()
-
-    ticket.documentoUsuario = parkigTicket.documentoUsuario
-    ticket.tipoVehiculo = parkigTicket.tipoVehiculo
-    ticket.idPlan = parkigTicket.idPlan
-    ticket.fechaIngreso = new Date(parkigTicket.fechaIngreso)
-    ticket.fechaSalida = new Date(parkigTicket.fechaSalida)
-    ticket.fechaSalidaSugerida = new Date(parkigTicket.fechaSalidaSugerida)
-    ticket.matricula = parkigTicket.matricula
-    await this.repositorio.save(ticket)
+  async registrarTicket(parkigTicket: Parking): Promise<ParkingDto>{
+    let ticket = this.fromModelToEntity(parkigTicket)
+    return this.fromEntityToDto(await this.repositorio.save(ticket))
   }
 
   async registrosPorUsuario(documentoUsuario: string): Promise<ParkingDto[]>{
@@ -42,4 +34,29 @@ export class RepositorioParkingMysql implements RepositorioParking {
   validarDiasFestivos(fechaIngreso: Date, fechaSalida: Date) {
     return this.entityManager.query(`select * from colombia_holidays where diaCelebracion >= ${fechaIngreso} and diaCelebracion <= ${fechaSalida}`)
   }
+
+   async actualizarTicket(id: number,parkigTicket: Parking){
+    //  let result = await this.repositorio.update({id},parkigTicket)
+    //  return new Parking(result)
+   }
+   
+   fromEntityToDto(parkingEntity: ParkingEntidad) {
+    let ticket = new ParkingDto()
+    Object.keys(parkingEntity).forEach(key => {
+      ticket[key] = parkingEntity[key]
+    })
+    return ticket
+   }
+
+   fromModelToEntity(parkingModel: Parking){
+    let ticket = new ParkingEntidad()
+    ticket.documentoUsuario = parkingModel.documentoUsuario
+    ticket.tipoVehiculo = parkingModel.tipoVehiculo
+    ticket.idPlan = parkingModel.idPlan
+    ticket.fechaIngreso = new Date(parkingModel.fechaIngreso)
+    ticket.fechaSalida = new Date(parkingModel.fechaSalida)
+    ticket.fechaSalidaSugerida = new Date(parkingModel.fechaSalidaSugerida)
+    ticket.matricula = parkingModel.matricula
+    return ticket
+   }
 }

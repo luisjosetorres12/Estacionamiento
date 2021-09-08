@@ -13,6 +13,11 @@ const TIPO_VEHICULO = [{name: 'Motocicleta', id: 0},
                        {name: 'Carro', id: 1}
                       ]
 
+const STATUS  = [
+  0,// Ingresado
+  1// Retirado
+]                      
+
 export class Parking {
 
   readonly #tipoVehiculo;
@@ -22,16 +27,19 @@ export class Parking {
   readonly #fechaSalida;
   readonly #fechaSalidaSugerida;
   readonly #matricula;
+  readonly #status;
 
   constructor(tipoVehiculo: number, idPlan: number, documentoUsuario: string, fechaIngreso: Date, matricula: string){
     this.validarTipoVehiculo(tipoVehiculo)
     this.validarTipoPlan(idPlan)
     this.validarDiasHabiles(fechaIngreso)
+
     this.#tipoVehiculo = tipoVehiculo;
     this.#idPlan = idPlan
     this.#documentoUsuario = documentoUsuario
     this.#fechaIngreso = fechaIngreso
     this.#matricula = matricula
+    this.#status = STATUS[0]
   }
 
   private validarTipoVehiculo(tipoVehiculo: number) {

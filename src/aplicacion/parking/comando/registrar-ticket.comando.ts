@@ -15,7 +15,7 @@ export class ComandoRegistrarTicket {
   documentoUsuario: string;
 
   @IsString()
-  @ApiProperty({ example: '1234567890' })
+  @ApiProperty({ example: 'ABC123' })
   matricula: string;
 
   @ApiProperty({ type: Date })
