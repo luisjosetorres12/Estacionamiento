@@ -51,8 +51,14 @@ pipeline{
 		}
 		post {
 			failure {
-				mail(to: 'juan.botero@ceiba.com.co',
+				mail(to: 'jose.torres@ceiba.com.co',
 				body:"Build failed in Jenkins: Project: ${env.JOB_NAME} Build /n Number: ${env.BUILD_NUMBER} URL de build: ${env.BUILD_NUMBER}/n/nPlease go to ${env.BUILD_URL} and verify the build",
+				subject: "ERROR CI: ${env.JOB_NAME}")
+			}
+
+			success {
+				mail(to: 'jose.torres@ceiba.com.co',
+				body:"Todo funciono correctamente :D ",
 				subject: "ERROR CI: ${env.JOB_NAME}")
 			}
 		}	
