@@ -1,0 +1,15 @@
+{
+    "type":"mysql",
+    "host":"localhost",
+    "username":"root",
+    "password":"123456",
+    "timeout":36000,
+    "port":3306,
+    "database":"test",
+    "entities":["dist/**/*.entidad{.ts,.js}"],
+    "migrationsTableName":"migration_history",
+    "migrations":["dist/infraestructura/migraciones/*.js"],
+    "cli":{
+        "migrationsDir":["src/infraestructura/migraciones"]
+    }
+}
