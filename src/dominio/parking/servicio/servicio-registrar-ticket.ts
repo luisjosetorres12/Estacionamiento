@@ -1,6 +1,5 @@
-import {ParkingDto} from '../../../aplicacion/parking/consulta/dto/parking.dto'
-import { Parking } from '../modelo/parking'
-import {RepositorioParking} from '../puerto/repository/repositorio-parking'
+import { Parking } from '../modelo/parking';
+import {RepositorioParking} from '../puerto/repository/repositorio-parking';
 export class ServicioRegistrarTicket {
 
   constructor(private readonly _repositorioParking: RepositorioParking){}

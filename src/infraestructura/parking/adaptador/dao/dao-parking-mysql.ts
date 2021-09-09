@@ -1,6 +1,6 @@
 
-import {DaoParking} from '../../../../dominio/parking/puerto/dao/dao-parking'
-import {ParkingDto} from '../../../../aplicacion/parking/consulta/dto/parking.dto'
+import {DaoParking} from '../../../../dominio/parking/puerto/dao/dao-parking';
+import {ParkingDto} from '../../../../aplicacion/parking/consulta/dto/parking.dto';
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';

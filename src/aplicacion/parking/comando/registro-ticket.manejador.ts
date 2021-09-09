@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import {ComandoRegistrarTicket} from './registrar-ticket.comando'
-import {ServicioRegistrarTicket} from 'src/dominio/parking/servicio/servicio-registrar-ticket'
-import {Parking} from 'src/dominio/parking/modelo/parking'
+import {ComandoRegistrarTicket} from './registrar-ticket.comando';
+import {ServicioRegistrarTicket} from 'src/dominio/parking/servicio/servicio-registrar-ticket';
+import {Parking} from 'src/dominio/parking/modelo/parking';
 
 @Injectable()
 export class ManejadorRegistroTicket {

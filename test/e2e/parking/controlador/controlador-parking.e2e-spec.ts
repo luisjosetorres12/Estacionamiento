@@ -132,6 +132,8 @@ describe('Pruebas al controlador de Parking', () => {
     expect(result.body.documentoUsuario).toBe(ticket.documentoUsuario)
   });
 
+  
+
   it('debería fallar al intentar registrar un ticket un dia sabado', async () => {
     const ticket: ComandoRegistrarTicket = {
       "tipoVehiculo": 1,

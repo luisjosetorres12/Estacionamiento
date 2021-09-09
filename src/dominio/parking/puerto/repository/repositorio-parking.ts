@@ -1,5 +1,5 @@
-import {ParkingDto} from '../../../../aplicacion/parking/consulta/dto/parking.dto'
-import { Parking } from '../../modelo/parking'
+import {ParkingDto} from '../../../../aplicacion/parking/consulta/dto/parking.dto';
+import { Parking } from '../../modelo/parking';
 
 export abstract class RepositorioParking {
   

@@ -1,4 +1,4 @@
-import {ParkingDto} from '../../../aplicacion/parking/consulta/dto/parking.dto'
+import {ParkingDto} from '../../../aplicacion/parking/consulta/dto/parking.dto';
 export class ServicioCalcularDemora{
   
   ejecutar(parkingTicket: ParkingDto): number {

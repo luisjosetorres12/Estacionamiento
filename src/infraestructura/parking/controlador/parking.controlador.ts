@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post, UsePipes, ValidationPipe, Param, Put } from '@nestjs/common';
-import {ManejadorRegistroTicket} from 'src/aplicacion/parking/comando/registro-ticket.manejador'
-import {ComandoRegistrarTicket} from 'src/aplicacion/parking/comando/registrar-ticket.comando'
-import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tickets.manejador'
-import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador'
-import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador'
-import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador'
+import {ManejadorRegistroTicket} from 'src/aplicacion/parking/comando/registro-ticket.manejador';
+import {ComandoRegistrarTicket} from 'src/aplicacion/parking/comando/registrar-ticket.comando';
+import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tickets.manejador';
+import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador';
+import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador';
+import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador';
 
-import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto'
+import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 
