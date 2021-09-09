@@ -21,6 +21,7 @@ import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
 import {servicioActualizarTicketProveedor} from 'src/infraestructura/parking/proveedor/servicio/servicio-actualizar-ticket.proveedor';
+import { response } from 'express';
 
 const sinonSandbox = createSandbox();
 
@@ -31,7 +32,7 @@ describe('Pruebas al controlador de Parking', () => {
   let daoParking: SinonStubbedInstance<DaoParking>
 
   beforeAll(async () => {
-    repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','valorDiasFestivos','registrosPorTipoPlan','registrosPorTipoVehiculo','registrosPorUsuario'], sinonSandbox);
+    repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','valorDiasFestivos','registrosPorTipoPlan','registrosPorTipoVehiculo','registrosPorUsuario', 'actualizarTicket'], sinonSandbox);
     daoParking = createStubObj<DaoParking>(['listar','buscar'],sinonSandbox)
     const moduleRef = await Test.createTestingModule({
       controllers:[ParkingController],
@@ -273,6 +274,39 @@ describe('Pruebas al controlador de Parking', () => {
     expect(response.body.message).toBe(mensaje);
     expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
   });
+
+  it('Deberia poder actualizar un ticket', async () => {
+    const ticket: ComandoRegistrarTicket = {
+      "tipoVehiculo": 1,
+      "idPlan": 4,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
+      "matricula":"ABC123",
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
+    };
+
+    await request(app.getHttpServer())
+      .post('/parking').send(ticket)
+      .expect(HttpStatus.CREATED)
+
+    const ticketDto: ParkingDto = {
+      "tipoVehiculo": 1,
+      "idPlan": 4,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
+      "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
+      "matricula":"ABC123",
+      "id":1,
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
+    }
+
+
+    const respose = await request(app.getHttpServer())
+    .put('/parking/1').send(ticket)
+    .expect(HttpStatus.OK)
+
+    
+  })
 
 
 
