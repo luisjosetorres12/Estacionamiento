@@ -8,6 +8,7 @@ import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/lis
 
 import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto'
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
+import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 
 @Controller('parking')
 export class ParkingController {
@@ -17,7 +18,8 @@ export class ParkingController {
               private readonly _namejadorListarTicketsUsuario: ManejadorListarTicketsPorUsuario,
               private readonly _manejadorListarTickesVehiculo: ManejadorListarTicketsPorTipoVehiculo,
               private readonly _manejadorListarTickesPlan: ManejadorListarTicketsPorPlan,
-              private readonly _manejadorMostrarTicket: ManejadorMostrarTicket){}
+              private readonly _manejadorMostrarTicket: ManejadorMostrarTicket,
+              private readonly _manejadorActualizarTicket: ManejadorActualizarTicket){}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -31,7 +33,7 @@ export class ParkingController {
   }
 
   @Get('/:id')
-  async buscar(@Param() params: string, @Body() comandoRegistrarTicket: ComandoRegistrarTicket) {
+  async buscar(@Param() params: string) {
     return await this._manejadorMostrarTicket.ejecutar(+params["id"])
   }
 
@@ -48,6 +50,11 @@ export class ParkingController {
   @Get('byPlan/:id')
   async listarPorTipoPlan(@Param() params: String) {
     return await this._manejadorListarTickesPlan.ejecutar(+params["id"])
+  }
+
+  @Put('/:id')
+  async actualizar(@Param() params: String, @Body() comandoRegistrarTicket: ComandoRegistrarTicket){
+    return this._manejadorActualizarTicket.ejecutar(+params["id"] ,comandoRegistrarTicket)
   }
 
 }

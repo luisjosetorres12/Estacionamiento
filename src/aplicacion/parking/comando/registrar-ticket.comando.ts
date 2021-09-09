@@ -20,4 +20,8 @@ export class ComandoRegistrarTicket {
 
   @ApiProperty({ type: Date })
   fechaIngreso: Date;
+
+  @IsOptional()
+  @ApiProperty({ type: Date })
+  fechaSalida: Date;
 }

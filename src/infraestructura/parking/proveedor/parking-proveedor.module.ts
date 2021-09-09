@@ -13,12 +13,16 @@ import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/
 import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador'
 import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador'
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
-
+import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
+import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
+import { servicioActualizarTicketProveedor } from './servicio/servicio-actualizar-ticket.proveedor';
+servicioActualizarTicketProveedor
 @Module({
 
   imports: [TypeOrmModule.forFeature([ParkingEntidad])],
   providers:[
     {provide: ServicioRegistrarTicket, inject:[RepositorioParking], useFactory: servicioRegistrarTicketProveedor},
+    {provide: ServicioActualizarTicket, inject:[RepositorioParking], useFactory: servicioActualizarTicketProveedor},
     daoParkingProvidier,
     repositoryParkingProvidier,
     ManejadorRegistroTicket,
@@ -26,7 +30,8 @@ import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-
     ManejadorListarTicketsPorUsuario,
     ManejadorListarTicketsPorTipoVehiculo,
     ManejadorListarTicketsPorPlan,
-    ManejadorMostrarTicket
+    ManejadorMostrarTicket,
+    ManejadorActualizarTicket
   ],
   exports:[
     DaoParking,
@@ -36,7 +41,8 @@ import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-
     ManejadorListarTicketsPorUsuario,
     ManejadorListarTicketsPorTipoVehiculo,
     ManejadorListarTicketsPorPlan,
-    ManejadorMostrarTicket
+    ManejadorMostrarTicket,
+    ManejadorActualizarTicket
   ]
 })
 

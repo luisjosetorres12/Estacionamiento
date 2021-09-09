@@ -16,7 +16,6 @@ export class DaoParkingMysql implements DaoParking{
 
   async buscar(id: number): Promise<ParkingDto> {
     let result = await this.entityManger.query(`select * from parking where id = ${id}`)
-    console.log(result)
     return result
   }
 }

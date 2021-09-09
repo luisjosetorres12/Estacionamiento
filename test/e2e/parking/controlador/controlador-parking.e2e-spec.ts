@@ -2,13 +2,13 @@ import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
 import { HttpStatus, INestApplication } from '@nestjs/common';
 import { createSandbox, SinonStubbedInstance } from 'sinon';
-import {RepositorioParking} from 'src/dominio/parking/puerto/repository/repositorio-parking'
-import {DaoParking} from 'src/dominio/parking/puerto/dao/dao-parking'
+import {RepositorioParking} from 'src/dominio/parking/puerto/repository/repositorio-parking';
+import {DaoParking} from 'src/dominio/parking/puerto/dao/dao-parking';
 import { createStubObj } from '../../../util/create-object.stub';
-import {ParkingController} from 'src/infraestructura/parking/controlador/parking.controlador'
+import {ParkingController} from 'src/infraestructura/parking/controlador/parking.controlador';
 import { AppLogger } from 'src/infraestructura/configuracion/ceiba-logger.service';
-import {ServicioRegistrarTicket} from 'src/dominio/parking/servicio/servicio-registrar-ticket'
-import {servicioRegistrarTicketProveedor} from 'src/infraestructura/parking/proveedor/servicio/servicio-registrar-ticket.proveedor'
+import {ServicioRegistrarTicket} from 'src/dominio/parking/servicio/servicio-registrar-ticket';
+import {servicioRegistrarTicketProveedor} from 'src/infraestructura/parking/proveedor/servicio/servicio-registrar-ticket.proveedor';
 import { ManejadorRegistroTicket } from 'src/aplicacion/parking/comando/registro-ticket.manejador';
 import { ManejadorListarTickets } from 'src/aplicacion/parking/consulta/listar-tickets.manejador';
 import { FiltroExcepcionesDeNegocio } from 'src/infraestructura/excepciones/filtro-excepciones-negocio';
@@ -18,7 +18,9 @@ import { ManejadorListarTicketsPorUsuario } from 'src/aplicacion/parking/consult
 import { ComandoRegistrarTicket } from 'src/aplicacion/parking/comando/registrar-ticket.comando';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
-
+import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
+import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
+import {servicioActualizarTicketProveedor} from 'src/infraestructura/parking/proveedor/servicio/servicio-actualizar-ticket.proveedor';
 const sinonSandbox = createSandbox();
 
 describe('Pruebas al controlador de Parking', () => {
@@ -28,7 +30,7 @@ describe('Pruebas al controlador de Parking', () => {
   let daoParking: SinonStubbedInstance<DaoParking>
 
   beforeAll(async () => {
-    repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','validarDiasFestivos','registrosPorTipoPlan','registrosPorTipoVehiculo','registrosPorUsuario'], sinonSandbox);
+    repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','valorDiasFestivos','registrosPorTipoPlan','registrosPorTipoVehiculo','registrosPorUsuario'], sinonSandbox);
     daoParking = createStubObj<DaoParking>(['listar','buscar'],sinonSandbox)
     const moduleRef = await Test.createTestingModule({
       controllers:[ParkingController],
@@ -39,6 +41,11 @@ describe('Pruebas al controlador de Parking', () => {
           inject:[RepositorioParking],
           useFactory:servicioRegistrarTicketProveedor
         },
+        {
+          provide:ServicioActualizarTicket,
+          inject:[RepositorioParking],
+          useFactory:servicioActualizarTicketProveedor
+        },
         {provide: RepositorioParking, useValue: repositorioParking},
         {provide: DaoParking, useValue: daoParking},
         ManejadorRegistroTicket,
@@ -46,7 +53,8 @@ describe('Pruebas al controlador de Parking', () => {
         ManejadorListarTicketsPorPlan,
         ManejadorListarTicketsPorTipoVehiculo,
         ManejadorListarTicketsPorUsuario,
-        ManejadorMostrarTicket
+        ManejadorMostrarTicket,
+        ManejadorActualizarTicket
       ]
     }).compile()
 
@@ -92,7 +100,8 @@ describe('Pruebas al controlador de Parking', () => {
       "idPlan": 4,
       "documentoUsuario": "1234567890",
       "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
-      "matricula":"ABC123"
+      "matricula":"ABC123",
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
     };
 
     const response = await request(app.getHttpServer())
@@ -129,7 +138,8 @@ describe('Pruebas al controlador de Parking', () => {
       "idPlan": 4,
       "documentoUsuario": "1234567890",
       "fechaIngreso": new Date("2021-09-11T15:11:04.972Z"),
-      "matricula":"ABC123"
+      "matricula":"ABC123",
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
     };
     const mensaje = 'Fecha Invalida, no se puede registrar pedidos los fines de semana';
 
@@ -148,7 +158,8 @@ describe('Pruebas al controlador de Parking', () => {
       "idPlan": 4,
       "documentoUsuario": "1234567890",
       "fechaIngreso": new Date("2021-09-12T15:11:04.972Z"),
-      "matricula":"ABC123"
+      "matricula":"ABC123",
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
     };
     const mensaje = 'Fecha Invalida, no se puede registrar pedidos los fines de semana';
 
@@ -166,7 +177,8 @@ describe('Pruebas al controlador de Parking', () => {
       "idPlan": 4,
       "documentoUsuario": "1234567890",
       "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
-      "matricula":"ABC123"
+      "matricula":"ABC123",
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
     };
     const mensaje = 'Tipo de vehiculo Invalido';
 
@@ -183,7 +195,8 @@ describe('Pruebas al controlador de Parking', () => {
       "idPlan": 7,
       "documentoUsuario": "1234567890",
       "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
-      "matricula":"ABC123"
+      "matricula":"ABC123",
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
     };
     const mensaje = 'Tipo de plan Invalido';
 
@@ -193,5 +206,7 @@ describe('Pruebas al controlador de Parking', () => {
     expect(response.body.message).toBe(mensaje);
     expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
   });
+
+
 
 })

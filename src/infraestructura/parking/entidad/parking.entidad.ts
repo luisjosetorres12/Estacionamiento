@@ -1,6 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
 
-const TIPO_PLAN = [{name: '30_Minutos', id: 0},
+const TIEMPO_PLANES = [{name: '30_Minutos', id: 0},
                    {name: '1_Hora', id: 1},
                    {name: '8_Horas', id: 2},
                    {name: 'Semana', id: 3},
@@ -33,23 +33,40 @@ export class ParkingEntidad {
   @Column()
   matricula: string;
 
+  @Column()
+  status: number;
+
+  @Column()
+  valorPagar: number;
+
+  @Column()
+  extraValorPagar: number;
+
   @BeforeInsert()
   private calcularFechaSalida(){
     let oldDate = new Date(this.fechaIngreso)
-    if(TIPO_PLAN[0].id == this.idPlan) {
+    if(TIEMPO_PLANES[0].id == this.idPlan) {
       this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours(), oldDate.getMinutes() + 30))
     }
-    if(TIPO_PLAN[1].id == this.idPlan) {
+    if(TIEMPO_PLANES[1].id == this.idPlan) {
       this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + 1, oldDate.getMinutes()))
     }
-    if(TIPO_PLAN[2].id == this.idPlan) {
+    if(TIEMPO_PLANES[2].id == this.idPlan) {
       this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + 8, oldDate.getMinutes()))
     }
-    if(TIPO_PLAN[3].id == this.idPlan) {
+    if(TIEMPO_PLANES[3].id == this.idPlan) {
       this.fechaSalidaSugerida = new Date(oldDate.setDate(oldDate.getDate() + 7))
     }
-    if(TIPO_PLAN[4].id == this.idPlan) {
+    if(TIEMPO_PLANES[4].id == this.idPlan) {
       this.fechaSalidaSugerida = new Date(oldDate.setMonth(oldDate.getMonth() + 1))
     }
   }
+  
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  private setStatus() {
+    this.fechaSalida ? this.status = 1 : this.status = 0;
+  }
+
 }

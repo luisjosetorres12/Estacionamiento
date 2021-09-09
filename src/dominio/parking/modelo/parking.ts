@@ -1,6 +1,6 @@
-import { ErrorDiaInvalido } from "src/dominio/errores/error-dia-invalido";
-import { ErrorTipoPlan } from "src/dominio/errores/error-tipo-plan";
-import { ErrorTipoVehiculo } from "src/dominio/errores/error-tipo-vehiculo";
+import { ErrorDiaInvalido } from 'src/dominio/errores/error-dia-invalido';
+import { ErrorTipoPlan } from 'src/dominio/errores/error-tipo-plan';
+import { ErrorTipoVehiculo } from 'src/dominio/errores/error-tipo-vehiculo';
 
 const TIPO_PLAN = [{name: '30_Minutos', id: 0},
                    {name: '1_Hora', id: 1},
@@ -43,19 +43,19 @@ export class Parking {
   }
 
   private validarTipoVehiculo(tipoVehiculo: number) {
-    if (TIPO_VEHICULO.filter(plan => plan.id == tipoVehiculo).length == 0) {
+    if (TIPO_VEHICULO.filter(plan => plan.id === tipoVehiculo).length === 0) {
       throw new ErrorTipoVehiculo('Tipo de vehiculo Invalido')
     }
   }
 
   private validarTipoPlan(tipoPlan: number) {
-    if (TIPO_PLAN.filter(plan => plan.id == tipoPlan).length == 0) {
+    if (TIPO_PLAN.filter(plan => plan.id === tipoPlan).length === 0) {
       throw new ErrorTipoPlan('Tipo de plan Invalido')
     }
   }
 
   private validarDiasHabiles(fechaIngreso: Date){
-    if (new Date(fechaIngreso).getDay() == 6 || new Date(fechaIngreso).getDay() == 0) {
+    if (new Date(fechaIngreso).getDay() === 6 || new Date(fechaIngreso).getDay() === 0) {
       throw new ErrorDiaInvalido('Fecha Invalida, no se puede registrar pedidos los fines de semana')
     }
 
