@@ -19,12 +19,12 @@ describe('RepositorioParkingMysql', () => {
     servicioRegistrarTicket = new ServicioRegistrarTicket(repositorioParking)
   })
 
-  it('Deberia traer los registros por tipo de plan', async () => {
-    await servicioRegistrarTicket.ejecutar(new Parking(1,1,'1234567890',new Date('2021-11-15T15:15:04.972Z'), 'ABC123'))
-    await servicioRegistrarTicket.ejecutar(new Parking(1,2,'1234567890',new Date('2021-11-15T15:15:04.972Z'), 'ABC123'))
-    await servicioRegistrarTicket.ejecutar(new Parking(1,2,'1234567890',new Date('2021-11-15T15:15:04.972Z'), 'ABC124'))
+  // it('Deberia traer los registros por tipo de plan', async () => {
+  //   await servicioRegistrarTicket.ejecutar(new Parking(1,1,'1234567890',new Date('2021-11-15T15:15:04.972Z'), 'ABC123'))
+  //   await servicioRegistrarTicket.ejecutar(new Parking(1,2,'1234567890',new Date('2021-11-15T15:15:04.972Z'), 'ABC123'))
+  //   await servicioRegistrarTicket.ejecutar(new Parking(1,2,'1234567890',new Date('2021-11-15T15:15:04.972Z'), 'ABC124'))
 
-    expect((await repositorioParking.registrosPorTipoPlan(2)).length).toBe(2)
-    expect((await repositorioParking.registrosPorTipoPlan(1)).length).toBe(1)
-  })
+  //   expect((await repositorioParking.registrosPorTipoPlan(2)).length).toBe(2)
+  //   expect((await repositorioParking.registrosPorTipoPlan(1)).length).toBe(1)
+  // })
 })
