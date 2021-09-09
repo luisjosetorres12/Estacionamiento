@@ -10,13 +10,14 @@ describe('ServicioRegistrarTicket', () => {
   let repositorioUsuarioStub: SinonStubbedInstance<RepositorioParking>;
 
   beforeEach(() => {
-    repositorioUsuarioStub = createStubObj<RepositorioParking>(['calcularDemora','registrarTicket','valorDiasFestivos'])
+    repositorioUsuarioStub = createStubObj<RepositorioParking>(['calcularDemora','registrarTicket','valorDiasFestivos','registrarTicket'])
     servicioRegistrarTicket = new ServicioRegistrarTicket(repositorioUsuarioStub)
   })
 
-  it('Deberia devolver el valor de la deuda', () => {
+  it('Deberia llamar al metodo registrar ticket', async () => {
     let result = 500
-    repositorioUsuarioStub.calcularDemora.withArgs(new Date("2021-09-07T15:13:04.972Z"), new Date("2021-09-07T15:11:04.972Z")).returns(result)
-    expect(repositorioUsuarioStub.calcularDemora(new Date("2021-09-07T15:13:04.972Z"), new Date("2021-09-07T15:11:04.972Z"))).toBe(result)
+    await servicioRegistrarTicket.ejecutar(new Parking(1,1,"123456789",new Date("2021-09-07T15:11:04.972Z"),"ABC123"))
+    
+    expect(repositorioUsuarioStub.registrarTicket.getCalls().length).toBe(1)
   })
 })
