@@ -21,7 +21,6 @@ export class RepositorioParkingMysql implements RepositorioParking {
 
      if(diasFestivos.length > 0) {
       ticket.extraValorPagar = ticket.valorPagar * 0.035
-      console.log(ticket.extraValorPagar)
       ticket.id = result.id
       result = this.fromEntityToDto(await this.repositorio.save(ticket))
      }
@@ -41,11 +40,11 @@ export class RepositorioParkingMysql implements RepositorioParking {
   }
 
   async valorDiasFestivos(fechaIngreso: Date, fechaSalida: Date) {
-    let startDate = fechaIngreso.toISOString().split('T').join(' ').substring(0,19)
-    let endDate = fechaSalida.toISOString().split('T').join(' ').substring(0,19)
-    console.log('Holii')
-    let result = await this.entityManager.query(`select * from colombia_holidays where diaCelebracion >= '${startDate}' and diaCelebracion <= '${endDate}'`)
-    return result
+    let maxLength = 19;
+    let startDate = fechaIngreso.toISOString().split('T').join(' ').substring(0,maxLength);
+    let endDate = fechaSalida.toISOString().split('T').join(' ').substring(0,maxLength);
+    return await this.entityManager.query(`select * from colombia_holidays where diaCelebracion >= '${startDate}' and diaCelebracion <= '${endDate}'`);
+     
   }
 
    async actualizarTicket(id: number,parkigTicket: ParkingDto){
