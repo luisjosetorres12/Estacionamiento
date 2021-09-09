@@ -9,4 +9,5 @@ export abstract class RepositorioParking {
   abstract registrosPorTipoVehiculo(tipoVehiculo: number): Promise<ParkingDto[]>
   abstract registrosPorTipoPlan(idPlan: number): Promise<ParkingDto[]>
   abstract actualizarTicket(id: number ,ticket: ParkingDto)
+  abstract calcularDemora(fechaSalida: Date, fechaSalidaSugerida: Date): number
 }

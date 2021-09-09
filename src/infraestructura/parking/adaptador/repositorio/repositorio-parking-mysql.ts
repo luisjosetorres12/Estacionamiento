@@ -43,6 +43,7 @@ export class RepositorioParkingMysql implements RepositorioParking {
   async valorDiasFestivos(fechaIngreso: Date, fechaSalida: Date) {
     let startDate = fechaIngreso.toISOString().split('T').join(' ').substring(0,19)
     let endDate = fechaSalida.toISOString().split('T').join(' ').substring(0,19)
+    console.log('Holii')
     let result = await this.entityManager.query(`select * from colombia_holidays where diaCelebracion >= '${startDate}' and diaCelebracion <= '${endDate}'`)
     return result
   }
@@ -51,7 +52,7 @@ export class RepositorioParkingMysql implements RepositorioParking {
      let ticket = this.fromDtoToEntity(id, parkigTicket)
      await this.repositorio.save(ticket)
      let result: ParkingEntidad[] = await this.repositorio.find({id})
-     let cobrarPorRetraso = await this.calcularDemora(result[0].fechaSalida, result[0].fechaSalidaSugerida)
+     let cobrarPorRetraso = this.calcularDemora(result[0].fechaSalida, result[0].fechaSalidaSugerida)
      result[0].extraValorPagar += cobrarPorRetraso
      await this.repositorio.save(result[0])
      return result
@@ -62,7 +63,7 @@ export class RepositorioParkingMysql implements RepositorioParking {
     return result[0].valorPagar
    }
 
-   async calcularDemora(fechaSalida: Date, fechaSalidaSugerida: Date): Promise<number> {
+   calcularDemora(fechaSalida: Date, fechaSalidaSugerida: Date): number {
      if (new Date(fechaSalidaSugerida).valueOf() > new Date(fechaSalida).valueOf()) {
        return 0
      }

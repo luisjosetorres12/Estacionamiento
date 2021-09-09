@@ -38,22 +38,22 @@ export class ParkingController {
   }
 
   @Get('byUser/:id')
-  async listarPorUsuario(@Param() params: String): Promise<ParkingDto[]>{
+  async listarPorUsuario(@Param() params: string): Promise<ParkingDto[]>{
     return await this._namejadorListarTicketsUsuario.ejecutar(params["id"])
   }
 
   @Get('byVehicleType/:id')
-  async listarPorTipoVehiculo(@Param() params: String): Promise<ParkingDto[]> {
+  async listarPorTipoVehiculo(@Param() params: string): Promise<ParkingDto[]> {
     return await this._manejadorListarTickesVehiculo.ejecutar(+params["id"])
   }
 
   @Get('byPlan/:id')
-  async listarPorTipoPlan(@Param() params: String) {
+  async listarPorTipoPlan(@Param() params: string) {
     return await this._manejadorListarTickesPlan.ejecutar(+params["id"])
   }
 
   @Put('/:id')
-  async actualizar(@Param() params: String, @Body() comandoRegistrarTicket: ComandoRegistrarTicket){
+  async actualizar(@Param() params: string, @Body() comandoRegistrarTicket: ComandoRegistrarTicket){
     return this._manejadorActualizarTicket.ejecutar(+params["id"] ,comandoRegistrarTicket)
   }
 
