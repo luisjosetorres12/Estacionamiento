@@ -198,6 +198,38 @@ describe('Pruebas al controlador de Parking', () => {
     expect(response.body.length).toBe(1)
   })
 
+  it('Deberia buscar tickets por cliente', async () => {
+    const tickets: ParkingDto[] = [{
+      "tipoVehiculo": 1,
+      "idPlan": 2,
+      "documentoUsuario": "1234567891",
+      "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
+      "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
+      "matricula":"ABC123",
+      "id":1,
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
+    },
+     {
+      "tipoVehiculo": 0,
+      "idPlan": 1,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
+      "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
+      "matricula":"ABC123",
+      "id":1,
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
+     }
+    ]
+
+    repositorioParking.registrosPorUsuario.returns(Promise.resolve(tickets.filter(element => element.documentoUsuario == "1234567890")))
+
+    const response = await request(app.getHttpServer())
+    .get('/parking/byUser/1234567890')
+    .expect(HttpStatus.OK)
+    
+    expect(response.body.length).toBe(1)
+  })
+
   
 
   it('debería fallar al intentar registrar un ticket un dia sabado', async () => {

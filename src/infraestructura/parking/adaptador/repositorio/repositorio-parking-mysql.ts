@@ -14,17 +14,17 @@ export class RepositorioParkingMysql implements RepositorioParking {
               @InjectEntityManager() private readonly entityManager: EntityManager){}
 
   async registrarTicket(parkigTicket: Parking): Promise<ParkingDto>{
-    let ticket = this.fromModelToEntity(parkigTicket)
-    ticket.valorPagar =  await this.valorAPagar(ticket.idPlan)
-    let result = this.fromEntityToDto(await this.repositorio.save(ticket))
-    let diasFestivos =  await this.valorDiasFestivos(result.fechaIngreso, result.fechaSalidaSugerida)
+    let ticket = this.fromModelToEntity(parkigTicket);
+    ticket.valorPagar =  await this.valorAPagar(ticket.idPlan);
+    let result = this.fromEntityToDto(await this.repositorio.save(ticket));
+    let diasFestivos =  await this.valorDiasFestivos(result.fechaIngreso, result.fechaSalidaSugerida);
 
      if(diasFestivos.length > 0) {
       ticket.extraValorPagar = ticket.valorPagar * 0.035
       ticket.id = result.id
       result = this.fromEntityToDto(await this.repositorio.save(ticket))
      }
-    return result
+    return result;
   }
 
   async registrosPorUsuario(documentoUsuario: string): Promise<ParkingDto[]>{
