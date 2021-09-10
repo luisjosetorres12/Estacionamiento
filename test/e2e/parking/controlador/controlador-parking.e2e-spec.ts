@@ -21,7 +21,6 @@ import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
 import {servicioActualizarTicketProveedor} from 'src/infraestructura/parking/proveedor/servicio/servicio-actualizar-ticket.proveedor';
-import { response } from 'express';
 
 const sinonSandbox = createSandbox();
 
@@ -339,6 +338,36 @@ describe('Pruebas al controlador de Parking', () => {
 
     expect(response.body[0].extraValorPagar).toBe(343)
     expect(response.body[0].valorPagar).toBe(9800)
+  })
+
+  it('Registros por tipo vehiculo, repositorio', async () => {
+
+    const tickets: ParkingDto[] = [{
+      "tipoVehiculo": 1,
+      "idPlan": 2,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
+      "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
+      "matricula":"ABC123",
+      "id":1,
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
+    },
+     {
+      "tipoVehiculo": 1,
+      "idPlan": 1,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
+      "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
+      "matricula":"ABC123",
+      "id":1,
+      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
+     }
+    ]
+    repositorioParking.registrosPorTipoPlan.withArgs(1).returns(Promise.resolve(tickets.filter(ticket => ticket.idPlan === 1)))
+
+    let result = await repositorioParking.registrosPorTipoPlan(1)
+    console.log(result)
+    expect(result.length).toBe(1)
   })
 
 
