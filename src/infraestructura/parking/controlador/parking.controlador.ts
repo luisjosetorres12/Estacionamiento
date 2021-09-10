@@ -5,7 +5,6 @@ import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tic
 import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador';
 import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador';
 import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador';
-
 import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
@@ -23,7 +22,7 @@ export class ParkingController {
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  async crearTicket(@Body() comandoRegistrarTicket: ComandoRegistrarTicket) {
+  async crearTicket(@Body() comandoRegistrarTicket: ComandoRegistrarTicket): Promise<ParkingDto> {
     return await this._manejadorRegistroTicket.ejecutar(comandoRegistrarTicket)
   }
 
