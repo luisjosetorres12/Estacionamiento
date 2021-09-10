@@ -30,16 +30,16 @@ export class Parking {
   readonly #status;
 
   constructor(tipoVehiculo: number, idPlan: number, documentoUsuario: string, fechaIngreso: Date, matricula: string){
-    this.validarTipoVehiculo(tipoVehiculo)
-    this.validarTipoPlan(idPlan)
-    this.validarDiasHabiles(fechaIngreso)
+    this.validarTipoVehiculo(tipoVehiculo);
+    this.validarTipoPlan(idPlan);
+    this.validarDiasHabiles(fechaIngreso);
 
     this.#tipoVehiculo = tipoVehiculo;
-    this.#idPlan = idPlan
-    this.#documentoUsuario = documentoUsuario
-    this.#fechaIngreso = fechaIngreso
-    this.#matricula = matricula
-    this.#status = STATUS[0]
+    this.#idPlan = idPlan;
+    this.#documentoUsuario = documentoUsuario;
+    this.#fechaIngreso = fechaIngreso;
+    this.#matricula = matricula;
+    this.#status = STATUS[0];
   }
 
   private validarTipoVehiculo(tipoVehiculo: number) {
