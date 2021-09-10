@@ -44,21 +44,31 @@ export class ParkingEntidad {
 
   @BeforeInsert()
   private calcularFechaSalida(){
+    let posicionMinutos = 0
+    let posicionHora = 1
+    let posicionHoras = 2
+    let posicionSemana = 3
+    let posicionMes = 4
     let oldDate = new Date(this.fechaIngreso)
-    if(TIEMPO_PLANES[0].id == this.idPlan) {
-      this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours(), oldDate.getMinutes() + 30))
+    if(TIEMPO_PLANES[posicionMinutos].id === this.idPlan) {
+      let tiempo = 30
+      this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours(), oldDate.getMinutes() + tiempo));
     }
-    if(TIEMPO_PLANES[1].id == this.idPlan) {
-      this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + 1, oldDate.getMinutes()))
+    if(TIEMPO_PLANES[posicionHora].id === this.idPlan) {
+      let tiempo = 1
+      this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + tiempo, oldDate.getMinutes()));
     }
-    if(TIEMPO_PLANES[2].id == this.idPlan) {
-      this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + 8, oldDate.getMinutes()))
+    if(TIEMPO_PLANES[posicionHoras].id === this.idPlan) {
+      let tiempo = 8
+      this.fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + tiempo, oldDate.getMinutes()));
     }
-    if(TIEMPO_PLANES[3].id == this.idPlan) {
-      this.fechaSalidaSugerida = new Date(oldDate.setDate(oldDate.getDate() + 7))
+    if(TIEMPO_PLANES[posicionSemana].id === this.idPlan) {
+      let tiempo = 7
+      this.fechaSalidaSugerida = new Date(oldDate.setDate(oldDate.getDate() + tiempo));
     }
-    if(TIEMPO_PLANES[4].id == this.idPlan) {
-      this.fechaSalidaSugerida = new Date(oldDate.setMonth(oldDate.getMonth() + 1))
+    if(TIEMPO_PLANES[posicionMes].id === this.idPlan) {
+      let tiempo = 1
+      this.fechaSalidaSugerida = new Date(oldDate.setMonth(oldDate.getMonth() + tiempo));
     }
   }
   

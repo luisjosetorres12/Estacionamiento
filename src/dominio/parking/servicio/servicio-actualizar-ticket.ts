@@ -5,7 +5,6 @@ export class ServicioActualizarTicket {
   constructor(private _repositorio: RepositorioParking){}
 
   ejecutar(id: number,parkingTicket: ParkingDto) {
-    this._repositorio.actualizarTicket(id, parkingTicket)
-    return parkingTicket
+    return this._repositorio.actualizarTicket(id, parkingTicket)
   }
 }
