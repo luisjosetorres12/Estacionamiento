@@ -317,27 +317,28 @@ describe('Pruebas al controlador de Parking', () => {
       "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
     };
 
-    await request(app.getHttpServer())
-      .post('/parking').send(ticket)
-      .expect(HttpStatus.CREATED)
 
-    const ticketDto: ParkingDto = {
+    const ticketDto = [{
+      "id": 69,
+      "documentoUsuario": "1234567890",
       "tipoVehiculo": 1,
       "idPlan": 4,
-      "documentoUsuario": "1234567890",
-      "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
-      "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
-      "matricula":"ABC123",
-      "id":1,
-      "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-    }
+      "fechaIngreso": "2021-11-15T15:15:05.000Z",
+      "fechaSalidaSugerida": "2021-12-15T15:15:05.000Z",
+      "fechaSalida": "2021-11-15T15:15:05.000Z",
+      "matricula": "ABC123",
+      "status": 1,
+      "valorPagar": 9800,
+      "extraValorPagar": 343
+    }]
 
-
-    const respose = await request(app.getHttpServer())
+    repositorioParking.actualizarTicket.returns(ticketDto)
+    const response = await request(app.getHttpServer())
     .put('/parking/1').send(ticket)
     .expect(HttpStatus.OK)
 
-    
+    expect(response.body[0].extraValorPagar).toBe(343)
+    expect(response.body[0].valorPagar).toBe(9800)
   })
 
 
