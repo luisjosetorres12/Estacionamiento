@@ -35,7 +35,7 @@ describe('Pruebas al controlador de Parking', () => {
   let repositorioParking: SinonStubbedInstance<RepositorioParking>
   let daoParking: SinonStubbedInstance<DaoParking>
   let utilService: SinonStubbedInstance<UtilTicketService>
-
+  let entity: SinonStubbedInstance<EntityManager>
   beforeAll(async () => {
     repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','registrosPorTipoPlan',
     'registrosPorTipoVehiculo','registrosPorUsuario'], sinonSandbox);
@@ -43,7 +43,7 @@ describe('Pruebas al controlador de Parking', () => {
     daoParking = createStubObj<DaoParking>(['listar','buscar'],sinonSandbox);
 
     utilService = createStubObj<UtilTicketService>(['fromModelToEntity','valorAPagarPorPlan','calcularFechaSalida','cantidadDiasFestivos'], sinonSandbox)
-
+    entity = createStubObj<EntityManager>(['query','save','find'])
     const moduleRef = await Test.createTestingModule({
       controllers:[ParkingController],
       providers: [
@@ -71,7 +71,7 @@ describe('Pruebas al controlador de Parking', () => {
         ManejadorListarTicketsPorUsuario,
         ManejadorMostrarTicket,
         ManejadorActualizarTicket,
-      ]
+      ],
     }).compile()
 
     app = moduleRef.createNestApplication();
