@@ -15,23 +15,23 @@ export class UtilTicketService {
     let tiempo: number;
     switch (tipoPlan) {
       case 0:
-        tiempo = 30
+        tiempo = 30;
         fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours(), oldDate.getMinutes() + tiempo));
         break;
       case 1:
-        tiempo = 1
+        tiempo = 1;
         fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + tiempo, oldDate.getMinutes()));
         break;
       case 2:
-        tiempo = 8
+        tiempo = 8;
         fechaSalidaSugerida = new Date(oldDate.setHours(oldDate.getHours() + tiempo, oldDate.getMinutes()));
         break;
       case 3:
-        tiempo = 7
+        tiempo = 7;
         fechaSalidaSugerida = new Date(oldDate.setDate(oldDate.getDate() + tiempo));
         break;
       case 4:
-        tiempo = 1
+        tiempo = 1;
         fechaSalidaSugerida = new Date(oldDate.setMonth(oldDate.getMonth() + tiempo));
         break;
     }

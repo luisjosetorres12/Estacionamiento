@@ -6,8 +6,10 @@ import { ParkingEntidad } from "src/infraestructura/parking/entidad/parking.enti
 import { stub,createSandbox, SinonStubbedInstance } from "sinon";
 import { EntityManager } from "typeorm";
 import * as typeorm from "typeorm";
-const sinonSandbox = createSandbox();
+import { ParkingDto } from "src/aplicacion/parking/consulta/dto/parking.dto";
 
+
+const sinonSandbox = createSandbox();
 describe('UtilTicketService', () => {
   
   let utilService: UtilTicketService
@@ -31,13 +33,52 @@ describe('UtilTicketService', () => {
     utilService = moduleRef.get<UtilTicketService>(UtilTicketService);
   })
 
-  it('Deberia calcularFechaSalida', () => {
+  it('Deberia calcularFechaSalida con Plan 4', () => {
     let fecha = utilService.calcularFechaSalida(new Date("2021-10-10T15:11:04.972Z"),4)
     expect(fecha).toMatchObject(new Date("2021-11-10T15:11:04.972Z"))
+  })
+
+  it('Deberia calcularFechaSalida con Plan 3', () => {
+    let fecha = utilService.calcularFechaSalida(new Date("2021-10-10T15:11:04.972Z"),3)
+    expect(fecha).toMatchObject(new Date("2021-10-17T15:11:04.972Z"))
+  })
+
+  it('Deberia calcularFechaSalida con Plan 2', () => {
+    let fecha = utilService.calcularFechaSalida(new Date("2021-10-10T15:11:04.972Z"),2)
+    expect(fecha).toMatchObject(new Date("2021-10-10T23:11:04.972Z"))
+  })
+
+  it('Deberia calcularFechaSalida con Plan 1', () => {
+    let fecha = utilService.calcularFechaSalida(new Date("2021-10-10T15:11:04.972Z"),1)
+    expect(fecha).toMatchObject(new Date("2021-10-10T16:11:04.972Z"))
+  })
+
+  it('Deberia calcularFechaSalida con Plan 0', () => {
+    let fecha = utilService.calcularFechaSalida(new Date("2021-10-10T15:11:04.972Z"),0)
+    expect(fecha).toMatchObject(new Date("2021-10-10T15:41:04.972Z"))
   })
   
   it('Deberia Calcular la demora', () => {
     let demora = utilService.calcularDemora(new Date("2021-10-10T15:15:04.972Z"), new Date("2021-10-10T15:11:04.972Z"))
     expect(demora).toBe(1000)
+  })
+
+  it('Deberia convertir de DTO a Entidad', () => {
+    let ticket = new ParkingDto()
+    ticket.documentoUsuario = "123456789";
+    ticket.idPlan = 1;
+    ticket.tipoVehiculo = 1;
+    let entidad = utilService.fromDtoToEntity(1,ticket)
+    expect(entidad.id).toBe(1)
+    expect(entidad.tipoVehiculo).toBe(1)
+    expect(entidad.documentoUsuario).toBe("123456789")
+  })
+
+  it('Debera calcular Valor a pagar por plan', async () => {
+    let tipoPlan = 4
+    entityManagerStub.query.withArgs(`select * from planes where id = ${tipoPlan}`).
+    returns(Promise.resolve([{valorPagar:9800}]))
+    let valorPagar = await utilService.valorAPagarPorPlan(4)
+    expect(valorPagar).toBe(9800)
   })
 })
