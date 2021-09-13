@@ -26,6 +26,7 @@ import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ti
 import { EntityManager } from 'typeorm';
 import { UtilTicketServiceProveedor } from 'src/infraestructura/parking/proveedor/servicio/servicio-util-ticket';
 import { log } from 'console';
+import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
 
 
 const sinonSandbox = createSandbox();
@@ -39,11 +40,12 @@ describe('Pruebas al controlador de Parking', () => {
   let entity: SinonStubbedInstance<EntityManager>
   beforeAll(async () => {
     repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','registrosPorTipoPlan',
-    'registrosPorTipoVehiculo','registrosPorUsuario'], sinonSandbox);
+    'registrosPorTipoVehiculo','registrosPorUsuario','actualizarTicket'], sinonSandbox);
 
     daoParking = createStubObj<DaoParking>(['listar','buscar'],sinonSandbox);
 
-    utilService = createStubObj<UtilTicketService>(['fromModelToEntity','valorAPagarPorPlan','calcularFechaSalida','cantidadDiasFestivos'], sinonSandbox)
+    utilService = createStubObj<UtilTicketService>(['fromModelToEntity','valorAPagarPorPlan','calcularFechaSalida','cantidadDiasFestivos', 'fromDtoToEntity','find',
+    'calcularDemora'], sinonSandbox)
     entity = createStubObj<EntityManager>(['query','save','find'])
     const moduleRef = await Test.createTestingModule({
       controllers:[ParkingController],
@@ -337,4 +339,25 @@ describe('Pruebas al controlador de Parking', () => {
      expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
    });
 
+   it('Deberia actualizar ticket', async () => {
+    let entidad = new ParkingEntidad()
+     entidad.id = 1
+     entidad.fechaSalida = new Date("2021-09-10T15:11:04.972Z")
+     entidad.documentoUsuario = "123456789"
+     entidad.idPlan = 1
+     entidad.tipoVehiculo = 1
+     entidad.matricula = "ABC123"
+
+     utilService.fromDtoToEntity.returns(entidad)
+     utilService.find.returns(Promise.resolve(parkingEntidadPost()))
+     const response = await request(app.getHttpServer())
+      .put('/parking/1').send({
+        "tipoVehiculo": 1,
+        "idPlan": 7,
+        "documentoUsuario": "1234567890",
+        "fechaSalida": new Date("2021-09-10T15:11:04.972Z"),
+        "matricula":"ABC123",
+      })
+      .expect(HttpStatus.OK)
+   })
 })
