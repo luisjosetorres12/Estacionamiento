@@ -23,7 +23,7 @@ import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ti
   imports: [TypeOrmModule.forFeature([ParkingEntidad])],
   providers:[
     {provide: ServicioRegistrarTicket, inject:[RepositorioParking, UtilTicketService], useFactory: servicioRegistrarTicketProveedor},
-    {provide: ServicioActualizarTicket, inject:[RepositorioParking], useFactory: servicioActualizarTicketProveedor},
+    {provide: ServicioActualizarTicket, inject:[RepositorioParking, UtilTicketService], useFactory: servicioActualizarTicketProveedor},
     daoParkingProvidier,
     repositoryParkingProvidier,
     ManejadorRegistroTicket,

@@ -82,9 +82,13 @@ export class UtilTicketService {
     if (new Date(fechaSalidaSugerida).valueOf() > new Date(fechaSalida).valueOf()) {
       return 0
     }
-   let milisegundos:number = Math.abs(new Date(fechaSalidaSugerida).valueOf() - new Date(fechaSalida).valueOf())
-   let minutos = milisegundos / 1000 / 60
-   return minutos * 250
+   let milisegundos:number = Math.abs(new Date(fechaSalidaSugerida).valueOf() - new Date(fechaSalida).valueOf());
+   let minutos = milisegundos / 1000 / 60;
+   return minutos * 250;
+  }
+
+  async find(id) {
+    return (await this.entityManager.query(`select * from parking where id = ${id}`))[0];
   }
 
 }

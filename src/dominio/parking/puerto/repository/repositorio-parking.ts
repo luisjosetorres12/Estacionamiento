@@ -8,5 +8,5 @@ export abstract class RepositorioParking {
   abstract registrosPorUsuario(documentoUsuario: string): Promise<ParkingDto[]>
   abstract registrosPorTipoVehiculo(tipoVehiculo: number): Promise<ParkingDto[]>
   abstract registrosPorTipoPlan(idPlan: number): Promise<ParkingDto[]>
-  // abstract actualizarTicket(id: number ,ticket: ParkingDto)
+  abstract actualizarTicket(id: number ,ticket: ParkingEntidad): Promise<ParkingDto>
 }

@@ -28,15 +28,8 @@ export class RepositorioParkingMysql implements RepositorioParking {
   }
 
 
-  //  // Analizando el metodo. Tarea : 1. Actualizar el ticket.
-  //  async actualizarTicket(id: number,parkigTicket: ParkingDto){
-  //    let ticket = this.fromDtoToEntity(id, parkigTicket) // Aca transforman de Dto a Entidad
-  //    await this.repositorio.save(ticket) // Aca Actualiza
-  //    let result: ParkingEntidad[] = await this.repositorio.find({id}) // Busca nuevamente el ticket
-  //    let cobrarPorRetraso = this.calcularDemora(result[0].fechaSalida, result[0].fechaSalidaSugerida) // Calcula la demora del ticket
-  //    result[0].extraValorPagar += cobrarPorRetraso // Se suma la demora al valor total a pagar
-  //    await this.repositorio.save(result[0]) // Se vuelve a actualizar
-  //    return result // Se retorna el result en un array
-  //  }
+    async actualizarTicket(id: number,parkigTicket: ParkingEntidad): Promise<ParkingDto>{
+      return this.repositorio.save(parkigTicket);
+    }
 
 }

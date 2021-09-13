@@ -25,6 +25,7 @@ import { parkingEntidadPost, parkingModeloPost, parkingEntidadResultPost, parkin
 import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ticket';
 import { EntityManager } from 'typeorm';
 import { UtilTicketServiceProveedor } from 'src/infraestructura/parking/proveedor/servicio/servicio-util-ticket';
+import { log } from 'console';
 
 
 const sinonSandbox = createSandbox();
@@ -55,7 +56,7 @@ describe('Pruebas al controlador de Parking', () => {
         },
         {
           provide:ServicioActualizarTicket,
-          inject:[RepositorioParking],
+          inject:[RepositorioParking, UtilTicketService],
           useFactory:servicioActualizarTicketProveedor
         },
         {provide: RepositorioParking, useValue: repositorioParking},
@@ -335,41 +336,5 @@ describe('Pruebas al controlador de Parking', () => {
      expect(response.body.message).toBe(mensaje);
      expect(response.body.statusCode).toBe(HttpStatus.BAD_REQUEST);
    });
-
-  // it('Deberia poder actualizar un ticket', async () => {
-  //   const ticket: ComandoRegistrarTicket = {
-  //     "tipoVehiculo": 1,
-  //     "idPlan": 4,
-  //     "documentoUsuario": "1234567890",
-  //     "fechaIngreso": new Date("2021-09-10T15:11:04.972Z"),
-  //     "matricula":"ABC123",
-  //     "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-  //   };
-
-
-  //   const ticketDto = [{
-  //     "id": 69,
-  //     "documentoUsuario": "1234567890",
-  //     "tipoVehiculo": 1,
-  //     "idPlan": 4,
-  //     "fechaIngreso": "2021-11-15T15:15:05.000Z",
-  //     "fechaSalidaSugerida": "2021-12-15T15:15:05.000Z",
-  //     "fechaSalida": "2021-11-15T15:15:05.000Z",
-  //     "matricula": "ABC123",
-  //     "status": 1,
-  //     "valorPagar": 9800,
-  //     "extraValorPagar": 343
-  //   }]
-
-  //   repositorioParking.actualizarTicket.returns(ticketDto)
-  //   const response = await request(app.getHttpServer())
-  //   .put('/parking/1').send(ticket)
-  //   .expect(HttpStatus.OK)
-
-  //   expect(response.body[0].extraValorPagar).toBe(343)
-  //   expect(response.body[0].valorPagar).toBe(9800)
-  // })
-
-
 
 })

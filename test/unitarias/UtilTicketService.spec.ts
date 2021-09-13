@@ -7,6 +7,7 @@ import { stub,createSandbox, SinonStubbedInstance } from "sinon";
 import { EntityManager } from "typeorm";
 import * as typeorm from "typeorm";
 import { ParkingDto } from "src/aplicacion/parking/consulta/dto/parking.dto";
+import { Parking } from "src/dominio/parking/modelo/parking";
 
 
 const sinonSandbox = createSandbox();
@@ -80,5 +81,19 @@ describe('UtilTicketService', () => {
     returns(Promise.resolve([{valorPagar:9800}]))
     let valorPagar = await utilService.valorAPagarPorPlan(4)
     expect(valorPagar).toBe(9800)
+  })
+
+  it('Deberia convertir de fromModelToEntity', () => {
+    let entidad = utilService.fromModelToEntity(new Parking(1,1,"123456789",new Date("2021-10-13T15:15:04.972Z"),"ABC123"))
+    expect(entidad.documentoUsuario).toBe("123456789")
+    expect(entidad.idPlan).toBe(1)
+    expect(entidad.tipoVehiculo).toBe(1)
+    expect(entidad.fechaIngreso).toMatchObject(new Date("2021-10-13T15:15:04.972Z"))
+  })
+
+  it('deberia buscar cantidadDiasFestivos', async () => {
+    entityManagerStub.query.returns(Promise.resolve([]))
+    let diasFestivos = await utilService.cantidadDiasFestivos(new Date("2021-01-01T15:15:04.972Z"), new Date("2021-10-13T15:15:04.972Z"))
+    expect(diasFestivos.length).toBe(0)
   })
 })
