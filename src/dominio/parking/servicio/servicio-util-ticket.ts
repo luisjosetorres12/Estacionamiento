@@ -1,8 +1,8 @@
-import { InjectEntityManager } from "@nestjs/typeorm";
-import { ParkingDto } from "src/aplicacion/parking/consulta/dto/parking.dto";
-import { ParkingEntidad } from "src/infraestructura/parking/entidad/parking.entidad";
-import { EntityManager } from "typeorm";
-import { Parking } from "../modelo/parking";
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
+import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
+import { EntityManager } from 'typeorm';
+import { Parking } from '../modelo/parking';
 
 
 export class UtilTicketService {

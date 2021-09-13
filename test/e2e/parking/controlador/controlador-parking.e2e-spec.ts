@@ -24,8 +24,6 @@ import {servicioActualizarTicketProveedor} from 'src/infraestructura/parking/pro
 import { parkingEntidadPost, parkingModeloPost, parkingEntidadResultPost, parkingEntidadResultPostObject } from 'test/util/parking.entidad';
 import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ticket';
 import { EntityManager } from 'typeorm';
-import { UtilTicketServiceProveedor } from 'src/infraestructura/parking/proveedor/servicio/servicio-util-ticket';
-import { log } from 'console';
 import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
 
 
