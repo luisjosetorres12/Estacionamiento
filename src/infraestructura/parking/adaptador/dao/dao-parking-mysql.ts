@@ -11,11 +11,10 @@ export class DaoParkingMysql implements DaoParking{
   constructor(@InjectEntityManager() private readonly entityManger: EntityManager){}
 
   async listar() :Promise<ParkingDto[]> {
-    return await this.entityManger.query('select * from parking')
+    return await this.entityManger.query('select * from parking');
   }
 
   async buscar(id: number): Promise<ParkingDto> {
-    let result = await this.entityManger.query(`select * from parking where id = ${id}`)
-    return result
+    return await this.entityManger.query(`select * from parking where id = ${id}`);
   }
 }

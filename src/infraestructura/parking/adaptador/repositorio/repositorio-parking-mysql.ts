@@ -12,19 +12,19 @@ export class RepositorioParkingMysql implements RepositorioParking {
   constructor(@InjectRepository(ParkingEntidad) private readonly repositorio: Repository<ParkingEntidad>){}
 
   async registrarTicket(parkigTicket: ParkingEntidad): Promise<ParkingDto>{
-    return this.repositorio.save(parkigTicket)
+    return this.repositorio.save(parkigTicket);
   }
 
   async registrosPorUsuario(documentoUsuario: string): Promise<ParkingDto[]>{
-    return await this.repositorio.find({documentoUsuario})
+    return await this.repositorio.find({documentoUsuario});
   }
 
   async registrosPorTipoVehiculo(tipoVehiculo: number): Promise<ParkingDto[]> {
-    return await this.repositorio.find({tipoVehiculo})
+    return await this.repositorio.find({tipoVehiculo});
   }
 
   async registrosPorTipoPlan(idPlan: number): Promise<ParkingDto[]>{
-    return await this.repositorio.find({idPlan})
+    return await this.repositorio.find({idPlan});
   }
 
 

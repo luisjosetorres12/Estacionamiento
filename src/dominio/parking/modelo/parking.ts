@@ -13,10 +13,7 @@ const TIPO_VEHICULO = [{name: 'Motocicleta', id: 0},
                        {name: 'Carro', id: 1}
                       ]
 
-const STATUS  = [
-  0,// Ingresado
-  1// Retirado
-]                      
+const STATUS  = [0,1]   
 
 export class Parking {
 
@@ -62,30 +59,30 @@ export class Parking {
   }
 
   get tipoVehiculo() :number {
-    return this.#tipoVehiculo
+    return this.#tipoVehiculo;
   }
 
   get idPlan() :number {
-    return this.#idPlan
+    return this.#idPlan;
   }
 
   get documentoUsuario() :string {
-    return this.#documentoUsuario
+    return this.#documentoUsuario;
   }
 
   get fechaIngreso() :Date {
-    return this.#fechaIngreso
+    return this.#fechaIngreso;
   }
 
   get fechaSalida() :Date {
-    return this.#fechaSalida
+    return this.#fechaSalida;
   }
 
   get fechaSalidaSugerida(): Date {
-    return this.#fechaSalidaSugerida
+    return this.#fechaSalidaSugerida;
   }
 
   get matricula(): string {
-    return this.#matricula
+    return this.#matricula;
   }
 }
