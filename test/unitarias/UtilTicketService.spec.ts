@@ -85,12 +85,12 @@ describe('UtilTicketService', () => {
     let entity = new ParkingEntidad()
     entity.documentoUsuario = "123456789"
     entity.extraValorPagar = 343
-    entity.fechaIngreso = new Date()
+    entity.fechaIngreso = new Date('2021-10-10T15:11:04.972Z')
     entity.tipoVehiculo = 1
 
     let dto = utilService.fromEntityToDto(entity)
     expect(dto.documentoUsuario).toBe("123456789")
-    expect(dto.fechaIngreso).toMatchObject(new Date())
+    expect(dto.fechaIngreso).toMatchObject(new Date('2021-10-10T15:11:04.972Z'))
     expect(dto.tipoVehiculo).toBe(1)
   })
 
