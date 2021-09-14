@@ -81,6 +81,19 @@ describe('UtilTicketService', () => {
     expect(entidad.documentoUsuario).toBe('123456789')
   })
 
+  it('Deberia convertir de Entidad a DTO', () => {
+    let entity = new ParkingEntidad()
+    entity.documentoUsuario = "123456789"
+    entity.extraValorPagar = 343
+    entity.fechaIngreso = new Date()
+    entity.tipoVehiculo = 1
+
+    let dto = utilService.fromEntityToDto(entity)
+    expect(dto.documentoUsuario).toBe("123456789")
+    expect(dto.fechaIngreso).toMatchObject(new Date())
+    expect(dto.tipoVehiculo).toBe(1)
+  })
+
   it('Debera calcular Valor a pagar por plan', async () => {
     let tipoPlan = 4
     entityManagerStub.query.withArgs(`select * from planes where id = ${tipoPlan}`).
