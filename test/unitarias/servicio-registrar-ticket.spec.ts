@@ -1,8 +1,8 @@
 import { ServicioRegistrarTicket } from "src/dominio/parking/servicio/servicio-registrar-ticket";
 import {Test, TestingModule} from "@nestjs/testing";
 import { createSandbox, SinonStubbedInstance, stub } from "sinon";
-import { EntityManager } from "typeorm";
-import * as typeorm from "typeorm";
+import { EntityManager } from 'typeorm';
+import * as typeorm from 'typeorm';
 
 describe('Test', () => {
     const sandbox = createSandbox()

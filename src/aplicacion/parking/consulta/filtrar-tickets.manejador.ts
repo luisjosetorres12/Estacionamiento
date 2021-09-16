@@ -1,5 +1,5 @@
 import {ParkingDto} from './dto/parking.dto'
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import { DaoParking } from 'src/dominio/parking/puerto/dao/dao-parking';
 
 @Injectable()

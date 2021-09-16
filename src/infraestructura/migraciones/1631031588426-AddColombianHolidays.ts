@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import {MigrationInterface, QueryRunner} from 'typeorm';
 import * as holidays from 'colombia-holidays'
 
 export class AddColombianHolidays1631031588426 implements MigrationInterface {

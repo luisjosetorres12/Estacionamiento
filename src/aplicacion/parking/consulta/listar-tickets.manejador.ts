@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import {DaoParking} from 'src/dominio/parking/puerto/dao/dao-parking'
 import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto'
 
