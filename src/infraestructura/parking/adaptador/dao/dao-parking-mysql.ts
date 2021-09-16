@@ -4,7 +4,6 @@ import {ParkingDto} from '../../../../aplicacion/parking/consulta/dto/parking.dt
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { string } from '@hapi/joi';
 
 const LIMITE_QUERY = 1;
 const OFFSET_VALUE = 10;
@@ -23,8 +22,8 @@ export class DaoParkingMysql implements DaoParking{
   }
 
   async filtrar(queryParams: {}): Promise<ParkingDto[]>{
-    let query = this.crearQuery(queryParams)
-    return this.entityManger.query(query)
+    let query = this.crearQuery(queryParams);
+    return this.entityManger.query(query);
   }
 
   crearQuery(queryParams: {}): string {
@@ -39,7 +38,6 @@ export class DaoParkingMysql implements DaoParking{
     if(keys.includes('page')) {
       query += `limit 10 offset ${queryParams['page'] * OFFSET_VALUE}`;
     }
-    console.log(query)
-    return query
-  } 
+    return query;
+  }
 }

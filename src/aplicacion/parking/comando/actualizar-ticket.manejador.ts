@@ -8,10 +8,10 @@ export class ManejadorActualizarTicket {
   constructor(private _actualizarTicket: ServicioActualizarTicket) {}
 
   async ejecutar(id: number,comandoRegistrarTicket: ComandoRegistrarTicket){
-    let ticket = new ParkingDto()
+    let ticket = new ParkingDto();
     Object.keys(comandoRegistrarTicket).forEach(key => {
-      ticket[key] = comandoRegistrarTicket[key]
+      ticket[key] = comandoRegistrarTicket[key];
     })
-    return await this._actualizarTicket.ejecutar(id ,ticket)
+    return await this._actualizarTicket.ejecutar(id ,ticket);
   }
 }
