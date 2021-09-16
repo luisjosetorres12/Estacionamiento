@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UsePipes, ValidationPipe, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, Post, UsePipes, ValidationPipe, Param, Put, Query } from '@nestjs/common';
 import {ManejadorRegistroTicket} from 'src/aplicacion/parking/comando/registro-ticket.manejador';
 import {ComandoRegistrarTicket} from 'src/aplicacion/parking/comando/registrar-ticket.comando';
 import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tickets.manejador';
@@ -8,7 +8,8 @@ import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/lis
 import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
-
+import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar-tickets.manejador';
+ManejadorFiltrarTickets
 @Controller('parking')
 export class ParkingController {
 
@@ -18,7 +19,8 @@ export class ParkingController {
               private readonly _manejadorListarTickesVehiculo: ManejadorListarTicketsPorTipoVehiculo,
               private readonly _manejadorListarTickesPlan: ManejadorListarTicketsPorPlan,
               private readonly _manejadorMostrarTicket: ManejadorMostrarTicket,
-              private readonly _manejadorActualizarTicket: ManejadorActualizarTicket){}
+              private readonly _manejadorActualizarTicket: ManejadorActualizarTicket,
+              private readonly _manejadorFiltrarTickets: ManejadorFiltrarTickets){}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -27,8 +29,13 @@ export class ParkingController {
   }
 
   @Get()
-  async listar(): Promise<ParkingDto[]>{
-    return await this._manejadorListarTickets.ejecutar();
+  async listar(@Query() params: string): Promise<ParkingDto[]>{
+    return await this._manejadorListarTickets.ejecutar(+params["page"]);
+  }
+
+  @Get('search')
+  async filtrar(@Query() queryParams: string){
+    return this._manejadorFiltrarTickets.ejecutar(queryParams)
   }
 
   @Get('/:id')

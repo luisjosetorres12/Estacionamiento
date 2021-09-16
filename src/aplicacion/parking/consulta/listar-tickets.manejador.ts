@@ -7,7 +7,7 @@ export class ManejadorListarTickets {
   
   constructor(private _daoParking: DaoParking) {}
 
-  async ejecutar(): Promise<ParkingDto[]>{
-    return await this._daoParking.listar()
+  async ejecutar(page: number): Promise<ParkingDto[]>{
+    return await this._daoParking.listar(page)
   }
 }

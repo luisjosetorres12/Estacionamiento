@@ -17,6 +17,7 @@ import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actual
 import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
 import { servicioActualizarTicketProveedor } from './servicio/servicio-actualizar-ticket.proveedor';
 import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ticket';
+import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar-tickets.manejador';
 
 @Module({
 
@@ -33,6 +34,7 @@ import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ti
     ManejadorListarTicketsPorPlan,
     ManejadorMostrarTicket,
     ManejadorActualizarTicket,
+    ManejadorFiltrarTickets,
     UtilTicketService
   ],
   exports:[
@@ -44,7 +46,8 @@ import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ti
     ManejadorListarTicketsPorTipoVehiculo,
     ManejadorListarTicketsPorPlan,
     ManejadorMostrarTicket,
-    ManejadorActualizarTicket
+    ManejadorActualizarTicket,
+    ManejadorFiltrarTickets
   ]
 })
 

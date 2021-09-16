@@ -25,6 +25,7 @@ import { parkingEntidadPost, parkingModeloPost, parkingEntidadResultPost, parkin
 import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ticket';
 import { EntityManager } from 'typeorm';
 import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
+import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar-tickets.manejador';
 
 
 const sinonSandbox = createSandbox();
@@ -72,6 +73,7 @@ describe('Pruebas al controlador de Parking', () => {
         ManejadorListarTicketsPorUsuario,
         ManejadorMostrarTicket,
         ManejadorActualizarTicket,
+        ManejadorFiltrarTickets
       ],
     }).compile()
 
