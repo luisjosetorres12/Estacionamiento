@@ -15,21 +15,7 @@ export class RepositorioParkingMysql implements RepositorioParking {
     return this.repositorio.save(parkigTicket);
   }
 
-  async registrosPorUsuario(documentoUsuario: string): Promise<ParkingDto[]>{
-    return await this.repositorio.find({documentoUsuario});
+  async actualizarTicket(id: number,parkigTicket: ParkingEntidad): Promise<ParkingDto>{
+    return this.repositorio.save(parkigTicket);
   }
-
-  async registrosPorTipoVehiculo(tipoVehiculo: number): Promise<ParkingDto[]> {
-    return await this.repositorio.find({tipoVehiculo});
-  }
-
-  async registrosPorTipoPlan(idPlan: number): Promise<ParkingDto[]>{
-    return await this.repositorio.find({idPlan});
-  }
-
-
-    async actualizarTicket(id: number,parkigTicket: ParkingEntidad): Promise<ParkingDto>{
-      return this.repositorio.save(parkigTicket);
-    }
-
 }

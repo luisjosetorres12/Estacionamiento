@@ -9,9 +9,6 @@ import {ServicioRegistrarTicket} from 'src/dominio/parking/servicio/servicio-reg
 import {servicioRegistrarTicketProveedor} from './servicio/servicio-registrar-ticket.proveedor';
 import {ManejadorRegistroTicket} from 'src/aplicacion/parking/comando/registro-ticket.manejador';
 import {ManejadorListarTickets} from 'src/aplicacion/parking/consulta/listar-tickets.manejador';
-import {ManejadorListarTicketsPorUsuario} from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador';
-import {ManejadorListarTicketsPorTipoVehiculo} from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador';
-import {ManejadorListarTicketsPorPlan} from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
@@ -29,9 +26,6 @@ import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar
     repositoryParkingProvidier,
     ManejadorRegistroTicket,
     ManejadorListarTickets,
-    ManejadorListarTicketsPorUsuario,
-    ManejadorListarTicketsPorTipoVehiculo,
-    ManejadorListarTicketsPorPlan,
     ManejadorMostrarTicket,
     ManejadorActualizarTicket,
     ManejadorFiltrarTickets,
@@ -42,9 +36,6 @@ import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar
     RepositorioParking,
     ManejadorRegistroTicket,
     ManejadorListarTickets,
-    ManejadorListarTicketsPorUsuario,
-    ManejadorListarTicketsPorTipoVehiculo,
-    ManejadorListarTicketsPorPlan,
     ManejadorMostrarTicket,
     ManejadorActualizarTicket,
     ManejadorFiltrarTickets

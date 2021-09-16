@@ -12,9 +12,6 @@ import {servicioRegistrarTicketProveedor} from 'src/infraestructura/parking/prov
 import { ManejadorRegistroTicket } from 'src/aplicacion/parking/comando/registro-ticket.manejador';
 import { ManejadorListarTickets } from 'src/aplicacion/parking/consulta/listar-tickets.manejador';
 import { FiltroExcepcionesDeNegocio } from 'src/infraestructura/excepciones/filtro-excepciones-negocio';
-import { ManejadorListarTicketsPorPlan } from 'src/aplicacion/parking/consulta/listar-tickets-plan.manejador';
-import { ManejadorListarTicketsPorTipoVehiculo } from 'src/aplicacion/parking/consulta/listar-tickets-vehiculo.manejador';
-import { ManejadorListarTicketsPorUsuario } from 'src/aplicacion/parking/consulta/listar-tickets-usuario.manejador';
 import { ComandoRegistrarTicket } from 'src/aplicacion/parking/comando/registrar-ticket.comando';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
@@ -38,8 +35,7 @@ describe('Pruebas al controlador de Parking', () => {
   let utilService: SinonStubbedInstance<UtilTicketService>
   let entity: SinonStubbedInstance<EntityManager>
   beforeAll(async () => {
-    repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','registrosPorTipoPlan',
-    'registrosPorTipoVehiculo','registrosPorUsuario','actualizarTicket'], sinonSandbox);
+    repositorioParking = createStubObj<RepositorioParking>(['registrarTicket','actualizarTicket'], sinonSandbox);
 
     daoParking = createStubObj<DaoParking>(['listar','buscar'],sinonSandbox);
 
@@ -68,9 +64,6 @@ describe('Pruebas al controlador de Parking', () => {
         {provide: DaoParking, useValue: daoParking},
         ManejadorRegistroTicket,
         ManejadorListarTickets,
-        ManejadorListarTicketsPorPlan,
-        ManejadorListarTicketsPorTipoVehiculo,
-        ManejadorListarTicketsPorUsuario,
         ManejadorMostrarTicket,
         ManejadorActualizarTicket,
         ManejadorFiltrarTickets
@@ -165,104 +158,6 @@ describe('Pruebas al controlador de Parking', () => {
      expect(result.body.id).toBe(ticket.id)
      expect(result.body.documentoUsuario).toBe(ticket.documentoUsuario)
    });
-
-   it('Deberia buscar tickets por tipo de plan', async () => {
-     const tickets: ParkingDto[] = [{
-       "tipoVehiculo": 1,
-       "idPlan": 2,
-       "documentoUsuario": "1234567890",
-       "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
-       "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
-       "matricula":"ABC123",
-       "id":1,
-       "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-     },
-      {
-       "tipoVehiculo": 1,
-       "idPlan": 1,
-       "documentoUsuario": "1234567890",
-       "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
-       "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
-       "matricula":"ABC123",
-       "id":1,
-       "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-      }
-     ]
-
-     repositorioParking.registrosPorTipoPlan.returns(Promise.resolve(tickets.filter(element => element.idPlan == 2)))
-
-     const response = await request(app.getHttpServer())
-     .get('/parking/byPlan/2')
-     .expect(HttpStatus.OK)
-    
-     expect(response.body.length).toBe(1)
-   })
-
-  it('Deberia buscar tickets por tipo de vehiculo', async () => {
-     const tickets: ParkingDto[] = [{
-       "tipoVehiculo": 1,
-       "idPlan": 2,
-       "documentoUsuario": "1234567890",
-       "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
-       "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
-       "matricula":"ABC123",
-       "id":1,
-       "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-     },
-      {
-       "tipoVehiculo": 0,
-       "idPlan": 1,
-       "documentoUsuario": "1234567890",
-       "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
-       "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
-       "matricula":"ABC123",
-       "id":1,
-       "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-      }
-     ]
-
-     repositorioParking.registrosPorTipoVehiculo.returns(Promise.resolve(tickets.filter(element => element.tipoVehiculo == 0)))
-
-     const response = await request(app.getHttpServer())
-     .get('/parking/byVehicleType/0')
-     .expect(HttpStatus.OK)
-    
-     expect(response.body.length).toBe(1)
-   })
-
-   it('Deberia buscar tickets por cliente', async () => {
-     const tickets: ParkingDto[] = [{
-       "tipoVehiculo": 1,
-       "idPlan": 2,
-       "documentoUsuario": "1234567891",
-       "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
-       "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
-       "matricula":"ABC123",
-       "id":1,
-       "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-     },
-      {
-       "tipoVehiculo": 0,
-       "idPlan": 1,
-       "documentoUsuario": "1234567890",
-       "fechaIngreso": new Date("2021-09-07T15:11:04.972Z"),
-       "fechaSalidaSugerida": new Date("2021-10-07T15:11:04.972Z"),
-       "matricula":"ABC123",
-       "id":1,
-       "fechaSalida": new Date("2021-10-07T15:11:04.972Z")
-      }
-     ]
-
-     repositorioParking.registrosPorUsuario.returns(Promise.resolve(tickets.filter(element => element.documentoUsuario == "1234567890")))
-
-     const response = await request(app.getHttpServer())
-     .get('/parking/byUser/1234567890')
-     .expect(HttpStatus.OK)
-    
-     expect(response.body.length).toBe(1)
-   })
-
-  
 
    it('debería fallar al intentar registrar un ticket un dia sabado', async () => {
      const ticket: ComandoRegistrarTicket = {
