@@ -19,12 +19,12 @@ export class ParkingController {
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
   async crearTicket(@Body() comandoRegistrarTicket: ComandoRegistrarTicket): Promise<ParkingDto> {
-    return await this._manejadorRegistroTicket.ejecutar(comandoRegistrarTicket);
+    return this._manejadorRegistroTicket.ejecutar(comandoRegistrarTicket);
   }
 
   @Get()
   async listar(@Query() params: string): Promise<ParkingDto[]>{
-    return await this._manejadorListarTickets.ejecutar(+params["page"]);
+    return this._manejadorListarTickets.ejecutar(+params["page"]);
   }
 
   @Get('search')
@@ -34,7 +34,7 @@ export class ParkingController {
 
   @Get('/:id')
   async buscar(@Param() params: string) {
-    return await this._manejadorMostrarTicket.ejecutar(+params['id']);
+    return this._manejadorMostrarTicket.ejecutar(+params['id']);
   }
 
   @Put('/:id')
