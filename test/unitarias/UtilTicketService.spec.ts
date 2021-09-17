@@ -96,9 +96,10 @@ describe('UtilTicketService', () => {
 
   it('Debera calcular Valor a pagar por plan', async () => {
     let tipoPlan = 4
-    entityManagerStub.query.withArgs(`select * from planes where id = ${tipoPlan}`).
+    let tipoVehiculo = 1
+    entityManagerStub.query.
     returns(Promise.resolve([{valorPagar:9800}]))
-    let valorPagar = await utilService.valorAPagarPorPlan(4)
+    let valorPagar = await utilService.valorAPagarPorPlan(4,1)
     expect(valorPagar).toBe(9800)
   })
 

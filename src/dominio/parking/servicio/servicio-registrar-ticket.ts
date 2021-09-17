@@ -13,7 +13,7 @@ export class ServicioRegistrarTicket {
 
   async ejecutar(parkingTicket: Parking) {
     let ticketEntidad = this._servicioUtil.fromModelToEntity(parkingTicket)
-    ticketEntidad.valorPagar = await this._servicioUtil.valorAPagarPorPlan(ticketEntidad.idPlan)
+    ticketEntidad.valorPagar = await this._servicioUtil.valorAPagarPorPlan(ticketEntidad.idPlan, ticketEntidad.tipoVehiculo)
     ticketEntidad.fechaSalidaSugerida = this._servicioUtil.calcularFechaSalida(ticketEntidad.fechaIngreso, ticketEntidad.idPlan)
     let diasFestivos =  await this._servicioUtil.cantidadDiasFestivos(ticketEntidad.fechaIngreso,ticketEntidad.fechaSalidaSugerida)
     if(diasFestivos.length > 0) {

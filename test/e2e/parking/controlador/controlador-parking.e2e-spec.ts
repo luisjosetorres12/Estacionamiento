@@ -114,7 +114,7 @@ describe('Pruebas al controlador de Parking', () => {
     .withArgs(parkingModeloPost()).returns(parkingEntidadPost())
 
     utilService.valorAPagarPorPlan
-    .withArgs(4)
+    .withArgs(4,1)
     .returns(Promise.resolve(9800))
 
 

@@ -130,4 +130,22 @@ describe('ControladorGet', () => {
   
   expect(response.body.length).toBe(1)
   });
+
+  it('Deberia buscar un ticket especifio', async () => {
+    const ticket: any[] = [{
+      "tipoVehiculo": 1,
+      "idPlan": 4,
+      "documentoUsuario": "1234567890",
+      "fechaIngreso": "2021-09-07T15:11:04.972Z",
+      "matricula":"ABC123"
+    }]
+
+    entityManagerStub.query.returns(Promise.resolve(ticket))
+
+    const response = await request(app.getHttpServer())
+    .get('/parking/1')
+    .expect(HttpStatus.OK)
+  
+  expect(response.body.length).toBe(1)
+  })
 })

@@ -14,7 +14,8 @@ export class DaoParkingMysql implements DaoParking{
   constructor(@InjectEntityManager() private readonly entityManger: EntityManager){}
 
   async listar(page: number): Promise<ParkingDto[]> {
-    return await this.entityManger.query(`select * from parking order by id desc limit 10 offset ${page * 10}`);
+    return await this.entityManger.query(`select * ,(select ceiling(count(id) / 10) from parking) as total 
+    from parking order by id desc limit 10 offset ${page * 10}`);
   }
 
   async buscar(id: number): Promise<ParkingDto> {

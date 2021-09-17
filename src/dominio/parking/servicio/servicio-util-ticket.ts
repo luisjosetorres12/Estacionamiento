@@ -10,7 +10,7 @@ export class UtilTicketService {
   constructor(@InjectEntityManager() private readonly entityManager: EntityManager){}
 
   calcularFechaSalida(fechaIngreso, tipoPlan){
-    let oldDate = new Date(fechaIngreso)
+    let oldDate = new Date(fechaIngreso);
     let fechaSalidaSugerida: Date;
     let tiempo: number;
     switch (tipoPlan) {
@@ -40,34 +40,34 @@ export class UtilTicketService {
   }
 
   fromDtoToEntity(id: number,parkingDto: ParkingDto) {
-    let ticket = new ParkingEntidad()
+    let ticket = new ParkingEntidad();
     Object.keys(parkingDto).forEach(key => {
       ticket[key] = parkingDto[key];
     })
-    ticket.id = id
-    return ticket
+    ticket.id = id;
+    return ticket;
    }
 
    fromModelToEntity(parkingModel: Parking): ParkingEntidad{
-    let ticket = new ParkingEntidad()
+    let ticket = new ParkingEntidad();
     ticket.documentoUsuario = parkingModel.documentoUsuario;
     ticket.tipoVehiculo = parkingModel.tipoVehiculo;
     ticket.idPlan = parkingModel.idPlan;
     ticket.fechaIngreso = new Date(parkingModel.fechaIngreso);
     ticket.matricula = parkingModel.matricula;
-    return ticket
+    return ticket;
    }
 
    fromEntityToDto(parkingEntity: ParkingEntidad) {
-    let ticket = new ParkingDto()
+    let ticket = new ParkingDto();
     Object.keys(parkingEntity).forEach(key => {
       ticket[key] = parkingEntity[key];
     })
-    return ticket
+    return ticket;
    }
 
-   async valorAPagarPorPlan(tipoPlan: number): Promise<number> {
-    let result = await this.entityManager.query(`select * from planes where id = ${tipoPlan}`)
+   async valorAPagarPorPlan(tipoPlan: number, tipoVehiculo: number): Promise<number> {
+    let result = await this.entityManager.query(`select * from planes where idPlan = ${tipoPlan} and tipoVehiculo = ${tipoVehiculo}`);
     return result[0].valorPagar;
    }
 
@@ -80,7 +80,7 @@ export class UtilTicketService {
 
   calcularDemora(fechaSalida: Date, fechaSalidaSugerida: Date): number {
     if (new Date(fechaSalidaSugerida).valueOf() > new Date(fechaSalida).valueOf()) {
-      return 0
+      return 0;
     }
    let milisegundos:number = Math.abs(new Date(fechaSalidaSugerida).valueOf() - new Date(fechaSalida).valueOf());
    let minutos = milisegundos / 1000 / 60;
