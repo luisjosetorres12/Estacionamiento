@@ -24,6 +24,11 @@ export class DaoParkingMysql implements DaoParking{
 
   async filtrar(queryParams: {}): Promise<ParkingDto[]>{
     let query = this.crearQuery(queryParams);
+    let querySplit = query.split('*');
+    let subQuery = query.split('*');
+    subQuery[0] += 'ceiling(count(id) / 10)';
+    querySplit[0] += `*, (${subQuery.join('')}) as total`;
+    query = querySplit.join('');
     return this.entityManger.query(query);
   }
 
@@ -39,6 +44,7 @@ export class DaoParkingMysql implements DaoParking{
     if(keys.includes('page')) {
       query += `limit 10 offset ${queryParams['page'] * OFFSET_VALUE}`;
     }
+    console.log(query);
     return query;
   }
 }
