@@ -7,13 +7,13 @@ const TIPO_PLAN = [{name: '30_Minutos', id: 0},
                    {name: '8_Horas', id: 2},
                    {name: 'Semana', id: 3},
                    {name: 'Mes', id: 4}
-                  ]
+                  ];
 
 const TIPO_VEHICULO = [{name: 'Motocicleta', id: 0}, 
                        {name: 'Carro', id: 1}
-                      ]
+                      ];
 
-const STATUS  = [0,1]   
+const STATUS  = [0,1];
 
 export class Parking {
 
@@ -30,7 +30,6 @@ export class Parking {
     this.validarTipoVehiculo(tipoVehiculo);
     this.validarTipoPlan(idPlan);
     this.validarDiasHabiles(fechaIngreso);
-
     this.#tipoVehiculo = tipoVehiculo;
     this.#idPlan = idPlan;
     this.#documentoUsuario = documentoUsuario;
@@ -41,19 +40,19 @@ export class Parking {
 
   private validarTipoVehiculo(tipoVehiculo: number) {
     if (TIPO_VEHICULO.filter(plan => plan.id === tipoVehiculo).length === 0) {
-      throw new ErrorTipoVehiculo('Tipo de vehiculo Invalido')
+      throw new ErrorTipoVehiculo('Tipo de vehiculo Invalido');
     }
   }
 
   private validarTipoPlan(tipoPlan: number) {
     if (TIPO_PLAN.filter(plan => plan.id === tipoPlan).length === 0) {
-      throw new ErrorTipoPlan('Tipo de plan Invalido')
+      throw new ErrorTipoPlan('Tipo de plan Invalido');
     }
   }
 
   private validarDiasHabiles(fechaIngreso: Date){
     if (new Date(fechaIngreso).getDay() === 6 || new Date(fechaIngreso).getDay() === 0) {
-      throw new ErrorDiaInvalido('Fecha Invalida, no se puede registrar pedidos los fines de semana')
+      throw new ErrorDiaInvalido('Fecha Invalida, no se puede registrar pedidos los fines de semana');
     }
 
   }

@@ -44,7 +44,6 @@ export class DaoParkingMysql implements DaoParking{
     if(keys.includes('page')) {
       query += `limit 10 offset ${queryParams['page'] * OFFSET_VALUE}`;
     }
-    console.log(query);
     return query;
   }
 }
