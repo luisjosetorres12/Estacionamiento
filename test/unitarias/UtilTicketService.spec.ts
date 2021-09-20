@@ -65,7 +65,7 @@ describe('UtilTicketService', () => {
   })
 
   it('Deberia Calcular la demora con 0 minutos de demora', () => {
-    let demora = utilService.calcularDemora(new Date('2021-10-10T15:11:04.972Z'), new Date('2021-10-10T15:11:04.972Z'))
+    let demora = utilService.calcularDemora(new Date('2021-10-10T15:10:04.972Z'), new Date('2021-10-10T15:11:04.972Z'))
     expect(demora).toBe(0)
   })
 
