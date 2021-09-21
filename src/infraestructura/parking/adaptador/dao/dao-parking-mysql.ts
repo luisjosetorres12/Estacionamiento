@@ -33,13 +33,13 @@ export class DaoParkingMysql implements DaoParking{
   }
 
   crearQuery(queryParams: {}): string {
-    let query = "select * from parking where ";
+    let query = 'select * from parking where ';
     let keys = Object.keys(queryParams);
     keys.forEach((key, index) => {
-      if(key !== "page") {
+      if(key !== 'page') {
         index !== keys.length - LIMITE_QUERY ? query += `${key} = ${queryParams[key]} AND ` : query += `${key} = ${queryParams[key]} `;
       }
-    })
+    });
 
     if(keys.includes('page')) {
       query += `limit 10 offset ${queryParams['page'] * OFFSET_VALUE}`;

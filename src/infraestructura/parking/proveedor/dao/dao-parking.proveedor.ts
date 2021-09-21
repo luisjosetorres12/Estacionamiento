@@ -4,4 +4,4 @@ import {DaoParkingMysql} from '../../adaptador/dao/dao-parking-mysql';
 export const daoParkingProvidier = {
   provide: DaoParking,
   useClass: DaoParkingMysql
-}
+};

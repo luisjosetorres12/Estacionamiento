@@ -1,4 +1,4 @@
-import { Ticket } from "../../modelo/ticket";
+import { Ticket } from '../../modelo/ticket';
 
 
 

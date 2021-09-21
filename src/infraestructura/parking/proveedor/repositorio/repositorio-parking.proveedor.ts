@@ -4,4 +4,4 @@ import {RepositorioParkingMysql} from './../../adaptador/repositorio/repositorio
 export const repositoryParkingProvidier = {
     provide: RepositorioParking,
     useClass: RepositorioParkingMysql
-}
+};

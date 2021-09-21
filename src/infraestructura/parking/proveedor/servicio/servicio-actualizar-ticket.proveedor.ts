@@ -3,5 +3,5 @@ import {ServicioActualizarTicket} from 'src/dominio/parking/servicio/servicio-ac
 
 
 export function servicioActualizarTicketProveedor(repositorioParking: RepositorioParking) {
-    return new ServicioActualizarTicket(repositorioParking)
+    return new ServicioActualizarTicket(repositorioParking);
 }

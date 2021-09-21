@@ -25,12 +25,12 @@ export class ParkingController {
 
   @Get()
   async listar(@Query() params: string): Promise<ParkingDto[]>{
-    return this._manejadorListarTickets.ejecutar(+params["page"]);
+    return this._manejadorListarTickets.ejecutar(+params['page']);
   }
 
   @Get('search')
   async filtrar(@Query() queryParams: string){
-    return this._manejadorFiltrarTickets.ejecutar(queryParams)
+    return this._manejadorFiltrarTickets.ejecutar(queryParams);
   }
 
   @Get('/:id')

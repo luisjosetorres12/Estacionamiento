@@ -5,4 +5,4 @@ export abstract class DaoParking {
     abstract buscar(id: number): Promise<ParkingDto>;
     abstract filtrar(queryParams: {}): Promise<ParkingDto[]>;
     abstract crearQuery(queryParams: {}): string;
-} 
+}

@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import {ParkingEntidad} from './../../entidad/parking.entidad';
 import { Repository, UpdateResult } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { Ticket } from 'src/dominio/parking/modelo/ticket'
+import { Ticket } from 'src/dominio/parking/modelo/ticket';
 import { ParseService } from 'src/aplicacion/parking/servicio/parser-service';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class RepositorioParkingMysql implements RepositorioParking {
   }
 
   async actualizarTicket(id: number,parkigTicket: Ticket): Promise<UpdateResult>{
-    let params = this.parser.generateObjectToUpdate(parkigTicket)
+    let params = this.parser.generateObjectToUpdate(parkigTicket);
     let result = await this.repositorio.update({
       id: id
     },params);

@@ -1,6 +1,6 @@
-import { Ticket } from "src/dominio/parking/modelo/ticket";
-import { ComandoActualizarTicket } from "../comando/actualizar-ticket.comanto";
-import { ParkingDto } from "../consulta/dto/parking.dto";
+import { Ticket } from 'src/dominio/parking/modelo/ticket';
+import { ComandoActualizarTicket } from '../comando/actualizar-ticket.comanto';
+
 
 const STATUS_FINISH = 1;
 export class ParseService {
@@ -25,13 +25,13 @@ export class ParseService {
   }
 
   generateObjectToUpdate(parkigTicket: Ticket): object{
-    let object = {}
-    if (parkigTicket.fechaSalida) object["fechaSalida"] = parkigTicket.fechaSalida;
-    if (parkigTicket.fechaIngreso) object["fechaIngreso"] = parkigTicket.fechaIngreso;
-    if (parkigTicket.documentoUsuario) object["documentoUsuario"] = parkigTicket.documentoUsuario;
-    if (parkigTicket.tipoVehiculo) object["tipoVehiculo"] = parkigTicket.tipoVehiculo;
-    if (parkigTicket.matricula) object["matricula"] = parkigTicket.matricula;
-    if (parkigTicket.idPlan) object["idPlan"] = parkigTicket.idPlan;
+    let object = {};
+    if (parkigTicket.fechaSalida) object['fechaSalida'] = parkigTicket.fechaSalida;
+    if (parkigTicket.fechaIngreso) object['fechaIngreso'] = parkigTicket.fechaIngreso;
+    if (parkigTicket.documentoUsuario) object['documentoUsuario'] = parkigTicket.documentoUsuario;
+    if (parkigTicket.tipoVehiculo) object['tipoVehiculo'] = parkigTicket.tipoVehiculo;
+    if (parkigTicket.matricula) object['matricula'] = parkigTicket.matricula;
+    if (parkigTicket.idPlan) object['idPlan'] = parkigTicket.idPlan;
     return object;
   }
 }

@@ -1,4 +1,4 @@
-import * as planes from '../modelo/planes'
+import * as planes from '../modelo/planes';
 
 const MILESIMAS_POR_SEGUDO = 1000;
 const SEGUNDOS_POR_MINUTO = 1000;
