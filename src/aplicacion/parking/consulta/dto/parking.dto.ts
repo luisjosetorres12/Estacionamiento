@@ -10,7 +10,7 @@ export class ParkingDto {
   @ApiProperty({ example: 2 })
   idPlan: number;
 
-  @ApiProperty({ example: '1234567890' })
+  @ApiProperty({ example: '123456789' })
   documentoUsuario: string;
 
   @ApiProperty({ type: Date })

@@ -13,23 +13,32 @@ import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
 import { servicioActualizarTicketProveedor } from './servicio/servicio-actualizar-ticket.proveedor';
-import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ticket';
 import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar-tickets.manejador';
+import { daoDiasFestivosProvidier } from './dao/dao-dias-festivos.proveedor';
+import { daoPlanesProvidier } from './dao/dao-planes.proveedor';
+import { DaoDiasFestivos } from 'src/dominio/parking/puerto/dao/dao-dias-festivos';
+import { DaoPlanes } from 'src/dominio/parking/puerto/dao/dao-planes';
+import { ServicioFechaTickets } from 'src/dominio/parking/servicio/servicio-fechas-ticket';
+import { ParseService } from 'src/aplicacion/parking/servicio/parser-service';
+
 
 @Module({
 
   imports: [TypeOrmModule.forFeature([ParkingEntidad])],
   providers:[
-    {provide: ServicioRegistrarTicket, inject:[RepositorioParking, UtilTicketService], useFactory: servicioRegistrarTicketProveedor},
-    {provide: ServicioActualizarTicket, inject:[RepositorioParking, UtilTicketService], useFactory: servicioActualizarTicketProveedor},
+    {provide: ServicioRegistrarTicket, inject:[RepositorioParking, DaoPlanes ,DaoDiasFestivos, ServicioFechaTickets], useFactory: servicioRegistrarTicketProveedor},
+    {provide: ServicioActualizarTicket, inject:[RepositorioParking], useFactory: servicioActualizarTicketProveedor},
     daoParkingProvidier,
     repositoryParkingProvidier,
     ManejadorRegistroTicket,
     ManejadorListarTickets,
     ManejadorMostrarTicket,
-    ManejadorActualizarTicket,
     ManejadorFiltrarTickets,
-    UtilTicketService
+    daoDiasFestivosProvidier,
+    daoPlanesProvidier,
+    ServicioFechaTickets,
+    ManejadorActualizarTicket,
+    ParseService
   ],
   exports:[
     DaoParking,
@@ -37,8 +46,10 @@ import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar
     ManejadorRegistroTicket,
     ManejadorListarTickets,
     ManejadorMostrarTicket,
-    ManejadorActualizarTicket,
-    ManejadorFiltrarTickets
+    ManejadorFiltrarTickets,
+    DaoDiasFestivos,
+    DaoPlanes,
+    ManejadorActualizarTicket
   ]
 })
 

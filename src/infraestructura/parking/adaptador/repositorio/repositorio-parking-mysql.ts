@@ -2,20 +2,30 @@ import {RepositorioParking} from 'src/dominio/parking/puerto/repository/reposito
 import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import {ParkingEntidad} from './../../entidad/parking.entidad';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-
+import { Ticket } from 'src/dominio/parking/modelo/ticket'
+import { ParseService } from 'src/aplicacion/parking/servicio/parser-service';
 
 @Injectable()
 export class RepositorioParkingMysql implements RepositorioParking {
 
-  constructor(@InjectRepository(ParkingEntidad) private readonly repositorio: Repository<ParkingEntidad>){}
+  constructor(@InjectRepository(ParkingEntidad) private readonly repositorio: Repository<ParkingEntidad>,
+              private parser: ParseService){}
 
-  async registrarTicket(parkigTicket: ParkingEntidad): Promise<ParkingDto>{
-    return this.repositorio.save(parkigTicket);
+  async registrarTicket(parkigTicket: Ticket): Promise<ParkingDto>{
+    let result = await this.repositorio.save(parkigTicket);
+    return this.repositorio.findOne(result.id);
   }
 
-  async actualizarTicket(id: number,parkigTicket: ParkingEntidad): Promise<ParkingDto>{
-    return this.repositorio.save(parkigTicket);
+  async actualizarTicket(id: number,parkigTicket: Ticket): Promise<UpdateResult>{
+    let params = this.parser.generateObjectToUpdate(parkigTicket)
+    let result = await this.repositorio.update({
+      id: id
+    },params);
+
+    return result;
   }
+
+
 }

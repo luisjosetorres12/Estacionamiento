@@ -6,6 +6,7 @@ import {ParkingDto} from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar-tickets.manejador';
+import { ComandoActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.comanto';
 
 @Controller('parking')
 export class ParkingController {
@@ -13,8 +14,8 @@ export class ParkingController {
   constructor(private readonly _manejadorRegistroTicket: ManejadorRegistroTicket,
               private readonly _manejadorListarTickets: ManejadorListarTickets,
               private readonly _manejadorMostrarTicket: ManejadorMostrarTicket,
-              private readonly _manejadorActualizarTicket: ManejadorActualizarTicket,
-              private readonly _manejadorFiltrarTickets: ManejadorFiltrarTickets){}
+              private readonly _manejadorFiltrarTickets: ManejadorFiltrarTickets,
+              private readonly _manejadorActualizarTicket: ManejadorActualizarTicket){}
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -37,9 +38,9 @@ export class ParkingController {
     return this._manejadorMostrarTicket.ejecutar(+params['id']);
   }
 
-  @Put('/:id')
-  async actualizar(@Param() params: string, @Body() comandoRegistrarTicket: ComandoRegistrarTicket){
-    return this._manejadorActualizarTicket.ejecutar(+params['id'] ,comandoRegistrarTicket);
-  }
+   @Put('/:id')
+   async actualizar(@Param() params: string, @Body() body: ComandoActualizarTicket){
+    return this._manejadorActualizarTicket.ejecutar(+params['id'] ,body);
+   }
 
 }

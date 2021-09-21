@@ -1,4 +1,4 @@
-import { IsDateString, IsNumber, IsString, IsOptional } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ComandoRegistrarTicket {
@@ -11,17 +11,13 @@ export class ComandoRegistrarTicket {
   idPlan: number;
 
   @IsString()
-  @ApiProperty({ example: '1234567890' })
+  @ApiProperty({ example: '123456789' })
   documentoUsuario: string;
 
   @IsString()
-  @ApiProperty({ example: 'ABC123' })
+  @ApiProperty({ example: 'ABC1234' })
   matricula: string;
 
   @ApiProperty({ type: Date })
   fechaIngreso: Date;
-
-  @IsOptional()
-  @ApiProperty({ type: Date })
-  fechaSalida: Date;
 }

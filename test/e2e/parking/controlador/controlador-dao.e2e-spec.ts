@@ -16,7 +16,6 @@ import { ComandoRegistrarTicket } from 'src/aplicacion/parking/comando/registrar
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
 import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
 import { parkingEntidadPost, parkingModeloPost, parkingEntidadResultPost, parkingEntidadResultPostObject } from 'test/util/parking.entidad';
-import { UtilTicketService } from 'src/dominio/parking/servicio/servicio-util-ticket';
 import { EntityManager } from 'typeorm';
 import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
 import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar-tickets.manejador';
@@ -25,8 +24,12 @@ import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-
 import { servicioActualizarTicketProveedor } from 'src/infraestructura/parking/proveedor/servicio/servicio-actualizar-ticket.proveedor';
 import { ManejadorActualizarTicket } from 'src/aplicacion/parking/comando/actualizar-ticket.manejador';
 import { daoParkingProvidier } from 'src/infraestructura/parking/proveedor/dao/dao-parking.proveedor';
-import { repositoryParkingProvidier } from 'src/infraestructura/parking/proveedor/repositorio/repositorio-parking.proveedor';
-import { UtilTicketServiceProveedor } from 'src/infraestructura/parking/proveedor/servicio/servicio-util-ticket';
+import { DaoPlanes } from 'src/dominio/parking/puerto/dao/dao-planes';
+import { DaoDiasFestivos } from 'src/dominio/parking/puerto/dao/dao-dias-festivos';
+import { ServicioFechaTickets } from 'src/dominio/parking/servicio/servicio-fechas-ticket';
+import { daoPlanesProvidier } from 'src/infraestructura/parking/proveedor/dao/dao-planes.proveedor';
+import { daoDiasFestivosProvidier } from 'src/infraestructura/parking/proveedor/dao/dao-dias-festivos.proveedor';
+import { ParseService } from 'src/aplicacion/parking/servicio/parser-service';
 
 const sinonSandbox = createSandbox();
 
@@ -47,12 +50,12 @@ describe('ControladorGet', () => {
         AppLogger,
         {
           provide:ServicioRegistrarTicket,
-          inject:[RepositorioParking, UtilTicketService],
+          inject:[RepositorioParking, DaoPlanes ,DaoDiasFestivos, ServicioFechaTickets],
           useFactory:servicioRegistrarTicketProveedor
         },
         {
           provide:ServicioActualizarTicket,
-          inject:[RepositorioParking, UtilTicketService],
+          inject:[RepositorioParking],
           useFactory:servicioActualizarTicketProveedor
         },
         {
@@ -65,8 +68,11 @@ describe('ControladorGet', () => {
         ManejadorActualizarTicket,
         ManejadorFiltrarTickets,
         daoParkingProvidier,
+        daoPlanesProvidier,
+        daoDiasFestivosProvidier,
         {provide: RepositorioParking, useValue: repositorioParking},
-        UtilTicketService
+        ServicioFechaTickets,
+        ParseService
       ]
     }).compile()
 
