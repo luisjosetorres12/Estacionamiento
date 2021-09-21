@@ -1,6 +1,6 @@
-import { ErrorDiaInvalido } from "src/dominio/errores/error-dia-invalido";
-import { ErrorTipoPlan } from "src/dominio/errores/error-tipo-plan";
-import { ErrorTipoVehiculo } from "src/dominio/errores/error-tipo-vehiculo";
+import { ErrorDiaInvalido } from 'src/dominio/errores/error-dia-invalido';
+import { ErrorTipoPlan } from 'src/dominio/errores/error-tipo-plan';
+import { ErrorTipoVehiculo } from 'src/dominio/errores/error-tipo-vehiculo';
 
 enum TIPO_VEHICULO {
   motocicleta = 0,

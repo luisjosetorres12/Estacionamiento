@@ -20,12 +20,8 @@ export class RepositorioParkingMysql implements RepositorioParking {
 
   async actualizarTicket(id: number,parkigTicket: Ticket): Promise<UpdateResult>{
     let params = this.parser.generateObjectToUpdate(parkigTicket);
-    let result = await this.repositorio.update({
-      id: id
+    return this.repositorio.update({
+      id
     },params);
-
-    return result;
   }
-
-
 }

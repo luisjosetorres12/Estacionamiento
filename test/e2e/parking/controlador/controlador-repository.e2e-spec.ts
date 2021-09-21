@@ -169,4 +169,14 @@ describe('ControladorGet', () => {
 
     expect(response.body.message).toBe("Fecha Invalida, no se puede registrar pedidos los fines de semana")
   })
+
+  it('Deberia actualizar un ticket', async () => {
+    let ticket = {
+      "fechaIngreso": "2021-09-06T13:20:55.883Z"
+    }
+    repositoryMock.update.mockReturnValue([{}]);
+    const response = await request(app.getHttpServer())
+    .put('/parking/1').send(ticket)
+    .expect(HttpStatus.OK)
+  })
 })

@@ -2,7 +2,7 @@ import {MigrationInterface, QueryRunner} from 'typeorm';
 
 export class createValorPagarTabla1631201272430 implements MigrationInterface {
 
-    public async up(queryRunner: QueryRunner): Promise<any> {
+    public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('CREATE TABLE `planes` (`id` int NOT NULL AUTO_INCREMENT, `valorPagar` float, `nombrePlan` varchar(50), `idPlan` int, `tipoVehiculo` int, PRIMARY KEY (`id`)) ENGINE=InnoDB', undefined);
 
         const TIPO_PLAN = [{name: '30 Minutos Moto',idPlan: 0, tipoVehiculo: 0, value:3000},
@@ -22,7 +22,7 @@ export class createValorPagarTabla1631201272430 implements MigrationInterface {
         }
     }
 
-    public async down(queryRunner: QueryRunner): Promise<any> {
+    public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query('DROP TABLE planes');
     }
 
