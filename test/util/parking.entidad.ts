@@ -1,5 +1,4 @@
 import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
-import { Parking } from 'src/dominio/parking/modelo/parking';
 import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
 
 export function parkingEntidadPost() {
@@ -14,9 +13,6 @@ export function parkingEntidadPost() {
     return ticket
 }
 
-export function parkingModeloPost() {
-    return new Parking(1,1,'1126705113',new Date('2021-09-10T15:11:04.972Z'),'ABC123')
-}
 
 export function parkingEntidadResultPost() {
     let ticket = new ParkingEntidad()
