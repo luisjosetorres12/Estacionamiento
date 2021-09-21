@@ -26,12 +26,12 @@ export class ParseService {
 
   generateObjectToUpdate(parkigTicket: Ticket): object{
     let object = {};
-    if (parkigTicket.fechaSalida) object['fechaSalida'] = parkigTicket.fechaSalida;
-    if (parkigTicket.fechaIngreso) object['fechaIngreso'] = parkigTicket.fechaIngreso;
-    if (parkigTicket.documentoUsuario) object['documentoUsuario'] = parkigTicket.documentoUsuario;
-    if (parkigTicket.tipoVehiculo) object['tipoVehiculo'] = parkigTicket.tipoVehiculo;
-    if (parkigTicket.matricula) object['matricula'] = parkigTicket.matricula;
-    if (parkigTicket.idPlan) object['idPlan'] = parkigTicket.idPlan;
+    if (parkigTicket.fechaSalida) {object['fechaSalida'] = parkigTicket.fechaSalida};
+    if (parkigTicket.fechaIngreso) {object['fechaIngreso'] = parkigTicket.fechaIngreso};
+    if (parkigTicket.documentoUsuario) {object['documentoUsuario'] = parkigTicket.documentoUsuario};
+    if (parkigTicket.tipoVehiculo) {object['tipoVehiculo'] = parkigTicket.tipoVehiculo};
+    if (parkigTicket.matricula) {object['matricula'] = parkigTicket.matricula};
+    if (parkigTicket.idPlan) {object['idPlan'] = parkigTicket.idPlan};
     return object;
   }
 }

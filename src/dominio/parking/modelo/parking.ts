@@ -54,7 +54,6 @@ export class Parking {
     if (new Date(fechaIngreso).getDay() === 6 || new Date(fechaIngreso).getDay() === 0) {
       throw new ErrorDiaInvalido('Fecha Invalida, no se puede registrar pedidos los fines de semana');
     }
-
   }
 
   get tipoVehiculo() :number {
