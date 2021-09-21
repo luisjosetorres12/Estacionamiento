@@ -16,89 +16,87 @@ export class Ticket {
     this.#id = value;
   }
 
+  get id(): number {
+    return this.#id;
+  }
+
   set tipoVehiculo(value: number) {
     this.#tipoVehiculo = value;
-  }
-
-  set idPlan(value: number) {
-    this.#idPlan = value;
-  }
-
-  set fechaIngreso(value: Date) {
-    this.#fechaIngreso = value;
-  }
-
-  set matricula(value: string) {
-    this.#matricula = value;
-  }
-
-  set documentoUsuario(value: string) {
-    this.#documentoUsuario = value;
-  }
-
-
-  set extraValorPagar(value: number) {
-    this.#extraValorPagar = value;
-  }
-
-  set fechaSalidaSugerida(value: Date) {
-    this.#fechaSalidaSugerida = value;
-  }
-
-  set fechaSalida(value: Date) {
-    this.#fechaSalida = value;
-  }
-
-  set valorPagar(value: number) {
-    this.#valorPagar = value;
-  }
-
-  set status(value: number) {
-    this.#status = value;
   }
 
   get tipoVehiculo(): number {
     return this.#tipoVehiculo;
   }
 
+  set idPlan(value: number) {
+    this.#idPlan = value;
+  }
+
   get idPlan(): number {
     return this.#idPlan;
   }
 
-  get documentoUsuario() :string {
-    return this.#documentoUsuario;
+  set fechaIngreso(value: Date) {
+    this.#fechaIngreso = value;
   }
 
   get fechaIngreso() :Date {
     return this.#fechaIngreso;
   }
 
-  get fechaSalida() :Date {
-    return this.#fechaSalida;
-  }
-
-  get fechaSalidaSugerida(): Date {
-    return this.#fechaSalidaSugerida;
+  set matricula(value: string) {
+    this.#matricula = value;
   }
 
   get matricula(): string {
     return this.#matricula;
   }
 
-  get status(): number {
-    return this.#status;
+  set documentoUsuario(value: string) {
+    this.#documentoUsuario = value;
   }
 
-  get valorPagar(): number {
-    return this.#valorPagar;
+  get documentoUsuario() :string {
+    return this.#documentoUsuario;
+  }
+
+  set extraValorPagar(value: number) {
+    this.#extraValorPagar = value;
   }
 
   get extraValorPagar(): number {
     return this.#extraValorPagar;
   }
 
-  get id(): number {
-    return this.#id;
+  set fechaSalidaSugerida(value: Date) {
+    this.#fechaSalidaSugerida = value;
   }
 
+  get fechaSalidaSugerida(): Date {
+    return this.#fechaSalidaSugerida;
+  }
+
+  set fechaSalida(value: Date) {
+    this.#fechaSalida = value;
+  }
+
+  get fechaSalida() :Date {
+    return this.#fechaSalida;
+  }
+
+  set valorPagar(value: number) {
+    this.#valorPagar = value;
+  }
+
+  get valorPagar(): number {
+    return this.#valorPagar;
+  }
+
+  set status(value: number) {
+    this.#status = value;
+  }
+
+  get status(): number {
+    return this.#status;
+  }
 }

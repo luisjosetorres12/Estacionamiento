@@ -1,13 +1,13 @@
 import * as planes from '../modelo/planes';
 
 const MILESIMAS_POR_SEGUDO = 1000;
-const SEGUNDOS_POR_MINUTO = 1000;
+const SEGUNDOS_POR_MINUTO = 60;
 const VALOR_MINUTO_RETRASO = 250;
 
 export class ServicioFechaTickets {
   
   calcularDemora(fechaSalida: Date, fechaSalidaSugerida: Date): number {
-    if (new Date(fechaSalidaSugerida).valueOf() > new Date(fechaSalida).valueOf()) {
+    if (new Date(fechaSalidaSugerida).valueOf() >= new Date(fechaSalida).valueOf()) {
       return 0;
     }
    let milisegundos:number = Math.abs(new Date(fechaSalidaSugerida).valueOf() - new Date(fechaSalida).valueOf());

@@ -12,6 +12,8 @@ describe('Test Ticket', () => {
     ticket.fechaSalida = new Date("2021-09-06T13:20:55.883Z")
     ticket.fechaIngreso = new Date("2021-09-06T13:20:55.883Z")
     ticket.fechaSalidaSugerida = new Date("2021-09-06T13:20:55.883Z")
+    ticket.documentoUsuario = "123456987";
+    ticket.id = 1
   })
 
   it('Deberia retornar la matricula', () => {
@@ -48,5 +50,13 @@ describe('Test Ticket', () => {
 
   it('Deberia retornar La fecha de salida sugerida', () => {
     expect(ticket.fechaSalidaSugerida).toMatchObject(new Date("2021-09-06T13:20:55.883Z"))
+  })
+
+  it('Deberia retornar el documento del usuario', () => {
+    expect(ticket.documentoUsuario).toBe("123456987")
+  })
+
+  it('Deberia retornar el id', () => {
+    expect(ticket.id).toBe(1)
   })
 })
