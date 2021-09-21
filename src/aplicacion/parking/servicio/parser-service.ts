@@ -8,13 +8,13 @@ export class ParseService {
   parserComandoToTicket(comando: ComandoActualizarTicket) {
     let ticket = new Ticket();
 
-    if(comando.documentoUsuario) ticket.documentoUsuario = comando.documentoUsuario;
+    if(comando.documentoUsuario) {ticket.documentoUsuario = comando.documentoUsuario;}
 
-    if(comando.idPlan) ticket.idPlan = comando.idPlan;
+    if(comando.idPlan !== undefined) {ticket.idPlan = comando.idPlan;}
 
-    if(comando.matricula) ticket.matricula = comando.matricula;
+    if(comando.matricula) {ticket.matricula = comando.matricula;}
 
-    if(comando.tipoVehiculo) ticket.tipoVehiculo = comando.tipoVehiculo;
+    if(comando.tipoVehiculo) {ticket.tipoVehiculo = comando.tipoVehiculo;}
 
     if(comando.fechaSalida) {
       ticket.fechaSalida = comando.fechaSalida;
@@ -26,12 +26,12 @@ export class ParseService {
 
   generateObjectToUpdate(parkigTicket: Ticket): object{
     let object = {};
-    if (parkigTicket.fechaSalida) {object['fechaSalida'] = parkigTicket.fechaSalida};
-    if (parkigTicket.fechaIngreso) {object['fechaIngreso'] = parkigTicket.fechaIngreso};
-    if (parkigTicket.documentoUsuario) {object['documentoUsuario'] = parkigTicket.documentoUsuario};
-    if (parkigTicket.tipoVehiculo) {object['tipoVehiculo'] = parkigTicket.tipoVehiculo};
-    if (parkigTicket.matricula) {object['matricula'] = parkigTicket.matricula};
-    if (parkigTicket.idPlan) {object['idPlan'] = parkigTicket.idPlan};
+    if (parkigTicket.fechaSalida) {object['fechaSalida'] = parkigTicket.fechaSalida;}
+    if (parkigTicket.fechaIngreso) {object['fechaIngreso'] = parkigTicket.fechaIngreso;}
+    if (parkigTicket.documentoUsuario) {object['documentoUsuario'] = parkigTicket.documentoUsuario;}
+    if (parkigTicket.tipoVehiculo) {object['tipoVehiculo'] = parkigTicket.tipoVehiculo;}
+    if (parkigTicket.matricula) {object['matricula'] = parkigTicket.matricula;}
+    if (parkigTicket.idPlan !== undefined) {object['idPlan'] = parkigTicket.idPlan;}
     return object;
   }
 }

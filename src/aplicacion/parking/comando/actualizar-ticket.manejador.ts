@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Ticket } from 'src/dominio/parking/modelo/ticket';
 import {ServicioActualizarTicket} from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
 import { ParseService } from '../servicio/parser-service';
 import { ComandoActualizarTicket } from './actualizar-ticket.comanto';

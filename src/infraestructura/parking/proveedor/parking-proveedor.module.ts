@@ -20,13 +20,14 @@ import { DaoDiasFestivos } from 'src/dominio/parking/puerto/dao/dao-dias-festivo
 import { DaoPlanes } from 'src/dominio/parking/puerto/dao/dao-planes';
 import { ServicioFechaTickets } from 'src/dominio/parking/servicio/servicio-fechas-ticket';
 import { ParseService } from 'src/aplicacion/parking/servicio/parser-service';
+import { ServicioValidadorTickets } from 'src/dominio/parking/servicio/servicio-validador-ticket';
 
 
 @Module({
 
   imports: [TypeOrmModule.forFeature([ParkingEntidad])],
   providers:[
-    {provide: ServicioRegistrarTicket, inject:[RepositorioParking, DaoPlanes ,DaoDiasFestivos, ServicioFechaTickets], useFactory: servicioRegistrarTicketProveedor},
+    {provide: ServicioRegistrarTicket, inject:[RepositorioParking, DaoPlanes ,DaoDiasFestivos, ServicioFechaTickets, ServicioValidadorTickets], useFactory: servicioRegistrarTicketProveedor},
     {provide: ServicioActualizarTicket, inject:[RepositorioParking], useFactory: servicioActualizarTicketProveedor},
     daoParkingProvidier,
     repositoryParkingProvidier,
@@ -38,7 +39,8 @@ import { ParseService } from 'src/aplicacion/parking/servicio/parser-service';
     daoPlanesProvidier,
     ServicioFechaTickets,
     ManejadorActualizarTicket,
-    ParseService
+    ParseService,
+    ServicioValidadorTickets
   ],
   exports:[
     DaoParking,

@@ -15,6 +15,9 @@ enum TIPO_PLAN {
   UN_MES = 4
 }
 
+const SABADO = 6;
+const DOMINGO = 0;
+
 export class ServicioValidadorTickets {
   
   validarTipoVehiculo(tipoVehiculo: number) {
@@ -30,7 +33,7 @@ export class ServicioValidadorTickets {
   }
 
   validarDiasHabiles(fechaIngreso: Date){
-    if (new Date(fechaIngreso).getDay() === 6 || new Date(fechaIngreso).getDay() === 0) {
+    if (new Date(fechaIngreso).getDay() === SABADO || new Date(fechaIngreso).getDay() === DOMINGO) {
       throw new ErrorDiaInvalido('Fecha Invalida, no se puede registrar pedidos los fines de semana');
     }
   }

@@ -25,6 +25,7 @@ import { repositoryParkingProvidier } from 'src/infraestructura/parking/proveedo
 import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ServicioValidadorTickets } from 'src/dominio/parking/servicio/servicio-validador-ticket';
 
 // @ts-ignore
 const repositoryMockFactory: () => MockType<Repository<any>> = jest.fn(() => ({
@@ -55,7 +56,7 @@ describe('ControladorGet', () => {
         AppLogger,
         {
           provide:ServicioRegistrarTicket,
-          inject:[RepositorioParking, DaoPlanes ,DaoDiasFestivos, ServicioFechaTickets],
+          inject:[RepositorioParking, DaoPlanes ,DaoDiasFestivos, ServicioFechaTickets, ServicioValidadorTickets],
           useFactory:servicioRegistrarTicketProveedor
         },
         {
@@ -74,7 +75,8 @@ describe('ControladorGet', () => {
         ServicioFechaTickets,
         ParseService,
         { provide: getRepositoryToken(ParkingEntidad), useFactory: repositoryMockFactory },
-        repositoryParkingProvidier
+        repositoryParkingProvidier,
+        ServicioValidadorTickets
       ]
     }).compile()
 
@@ -96,7 +98,7 @@ describe('ControladorGet', () => {
 
   it('Deberia registrar un ticket', async () => {
     let ticket = {
-      "tipoVehiculo": 2,
+      "tipoVehiculo": 0,
       "idPlan": 1,
       "documentoUsuario":"1126705117",
       "fechaIngreso": "2021-09-06T13:20:55.883Z",
@@ -109,5 +111,62 @@ describe('ControladorGet', () => {
     const response = await request(app.getHttpServer())
     .post('/parking').send(ticket)
     .expect(HttpStatus.CREATED)
+  })
+
+  it('Deberia retornar error por tipo plan', async () => {
+    let ticket = {
+      "tipoVehiculo": 0,
+      "idPlan": 17,
+      "documentoUsuario":"1126705117",
+      "fechaIngreso": "2021-09-06T13:20:55.883Z",
+      "matricula":"ABC123"
+    }
+    repositoryMock.findOne.mockReturnValue(ticket);
+    repositoryMock.save.mockReturnValue({id: 1});
+    daoPlanes.valorAPagarPorPlan.returns(Promise.resolve(8200));
+    daoDiasFestivos.cantidadDiasFestivos.returns([])
+    const response = await request(app.getHttpServer())
+    .post('/parking').send(ticket)
+    .expect(HttpStatus.BAD_REQUEST)
+
+    expect(response.body.message).toBe("Tipo de plan Invalido")
+  })
+
+  it('Deberia retornar error por tipo vehiculo', async () => {
+    let ticket = {
+      "tipoVehiculo": 3,
+      "idPlan": 1,
+      "documentoUsuario":"1126705117",
+      "fechaIngreso": "2021-09-06T13:20:55.883Z",
+      "matricula":"ABC123"
+    }
+    repositoryMock.findOne.mockReturnValue(ticket);
+    repositoryMock.save.mockReturnValue({id: 1});
+    daoPlanes.valorAPagarPorPlan.returns(Promise.resolve(8200));
+    daoDiasFestivos.cantidadDiasFestivos.returns([])
+    const response = await request(app.getHttpServer())
+    .post('/parking').send(ticket)
+    .expect(HttpStatus.BAD_REQUEST)
+
+    expect(response.body.message).toBe("Tipo de vehiculo Invalido")
+  })
+
+  it('Deberia retornar error por fecha invalida', async () => {
+    let ticket = {
+      "tipoVehiculo": 1,
+      "idPlan": 1,
+      "documentoUsuario":"1126705117",
+      "fechaIngreso": "2021-09-19T13:20:55.883Z",
+      "matricula":"ABC123"
+    }
+    repositoryMock.findOne.mockReturnValue(ticket);
+    repositoryMock.save.mockReturnValue({id: 1});
+    daoPlanes.valorAPagarPorPlan.returns(Promise.resolve(8200));
+    daoDiasFestivos.cantidadDiasFestivos.returns([])
+    const response = await request(app.getHttpServer())
+    .post('/parking').send(ticket)
+    .expect(HttpStatus.BAD_REQUEST)
+
+    expect(response.body.message).toBe("Fecha Invalida, no se puede registrar pedidos los fines de semana")
   })
 })

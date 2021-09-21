@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'parking' })
 export class ParkingEntidad {
@@ -34,11 +34,4 @@ export class ParkingEntidad {
 
   @Column()
   extraValorPagar: number;  
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  private setStatus() {
-    this.fechaSalida ? this.status = 1 : this.status = 0;
-  }
-
 }
