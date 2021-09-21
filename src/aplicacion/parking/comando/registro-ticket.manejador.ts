@@ -14,6 +14,6 @@ export class ManejadorRegistroTicket {
     ticket.documentoUsuario = comandoRegistrarTicket.documentoUsuario;
     ticket.fechaIngreso = comandoRegistrarTicket.fechaIngreso;
     ticket.matricula = comandoRegistrarTicket.matricula; 
-    return await this._servicioRegistrarTicket.ejecutar(ticket)
+    return await this._servicioRegistrarTicket.ejecutar(ticket);
   }
 }
