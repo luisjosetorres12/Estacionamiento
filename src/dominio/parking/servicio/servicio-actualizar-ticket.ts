@@ -1,4 +1,3 @@
-import { ParkingDto } from '../../../aplicacion/parking/consulta/dto/parking.dto';
 import { Ticket } from '../modelo/ticket';
 import {RepositorioParking} from '../puerto/repository/repositorio-parking';
 export class ServicioActualizarTicket {

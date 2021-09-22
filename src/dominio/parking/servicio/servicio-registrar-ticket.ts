@@ -24,6 +24,6 @@ export class ServicioRegistrarTicket {
     if(diasFestivos.length > 0) {
       parkingTicket.extraValorPagar = parkingTicket.valorPagar * RECARGO_DIAS_FESTIVOS;
     }
-    return await this._repositorioParking.registrarTicket(parkingTicket);
+    return this._repositorioParking.registrarTicket(parkingTicket);
   }
 }

@@ -27,7 +27,13 @@ import { ServicioValidadorTickets } from 'src/dominio/parking/servicio/servicio-
 
   imports: [TypeOrmModule.forFeature([ParkingEntidad])],
   providers:[
-    {provide: ServicioRegistrarTicket, inject:[RepositorioParking, DaoPlanes ,DaoDiasFestivos, ServicioFechaTickets, ServicioValidadorTickets], useFactory: servicioRegistrarTicketProveedor},
+    {provide: ServicioRegistrarTicket, inject:[
+      RepositorioParking,
+      DaoPlanes,
+      DaoDiasFestivos,
+      ServicioFechaTickets,
+      ServicioValidadorTickets],
+      useFactory: servicioRegistrarTicketProveedor},
     {provide: ServicioActualizarTicket, inject:[RepositorioParking], useFactory: servicioActualizarTicketProveedor},
     daoParkingProvidier,
     repositoryParkingProvidier,

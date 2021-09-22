@@ -4,6 +4,8 @@ import {ParkingDto} from '../../../../aplicacion/parking/consulta/dto/parking.dt
 import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
+import { TicketSearchDto } from 'src/aplicacion/parking/consulta/dto/ticket-search.dto';
+
 
 const LIMITE_QUERY = 1;
 const OFFSET_VALUE = 10;
@@ -14,12 +16,12 @@ export class DaoParkingMysql implements DaoParking{
   constructor(@InjectEntityManager() private readonly entityManger: EntityManager){}
 
   async listar(page: number): Promise<ParkingDto[]> {
-    return await this.entityManger.query(`select * ,(select ceiling(count(id) / 10) from parking) as total 
+    return this.entityManger.query(`select * ,(select ceiling(count(id) / 10) from parking) as total 
     from parking order by id desc limit 10 offset ${page * OFFSET_VALUE}`);
   }
 
-  async buscar(id: number): Promise<ParkingDto> {
-    return await this.entityManger.query(`select * from parking where id = ${id}`);
+  async buscar(id: number): Promise<TicketSearchDto> {
+    return this.entityManger.query(`select * from parking where id = ${id}`);
   }
 
   async filtrar(queryParams: {}): Promise<ParkingDto[]>{

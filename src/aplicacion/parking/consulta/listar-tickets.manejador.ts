@@ -8,6 +8,6 @@ export class ManejadorListarTickets {
   constructor(private _daoParking: DaoParking) {}
 
   async ejecutar(page: number): Promise<ParkingDto[]>{
-    return await this._daoParking.listar(page);
+    return this._daoParking.listar(page);
   }
 }
