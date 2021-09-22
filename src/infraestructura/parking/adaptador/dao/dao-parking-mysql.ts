@@ -39,7 +39,11 @@ export class DaoParkingMysql implements DaoParking{
     let keys = Object.keys(queryParams);
     keys.forEach((key, index) => {
       if(key !== 'page') {
-        index !== keys.length - LIMITE_QUERY ? query += `${key} = ${queryParams[key]} AND ` : query += `${key} = ${queryParams[key]} `;
+        if(index !== keys.length - LIMITE_QUERY) {
+          query += `${key} = ${queryParams[key]} AND `;
+        }else {
+          query += `${key} = ${queryParams[key]} `;
+        } 
       }
     });
 

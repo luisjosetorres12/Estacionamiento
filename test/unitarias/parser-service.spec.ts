@@ -31,12 +31,13 @@ describe('ParseServiceTest', () => {
     ticket.documentoUsuario = "123456798";
     ticket.fechaSalida = new Date("2021-09-06T13:20:55.883Z");
     ticket.idPlan = 0;
-
-    let result = parseService.parserComandoToTicket(ticket)
+    ticket.matricula = "ABC123";
+    let result = parseService.parserComandoToTicket(ticket);
 
     expect(result.documentoUsuario).toBe(ticket.documentoUsuario);
     expect(result.tipoVehiculo).toBe(ticket.tipoVehiculo);
-    expect(result.fechaSalida).toBe(ticket.fechaSalida)
-    expect(result.idPlan).toBe(ticket.idPlan)
+    expect(result.fechaSalida).toBe(ticket.fechaSalida);
+    expect(result.idPlan).toBe(ticket.idPlan);
+    expect(result.matricula).toBe(ticket.matricula);
   })
 })

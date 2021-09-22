@@ -29,7 +29,7 @@ describe('Test Ticket', () => {
   })
 
   it('Deberia retornar el status', () => {
-    expect(ticket.idPlan).toBe(0)
+    expect(ticket.status).toBe(0)
   })
 
   it('Deberia retornar el valor a pagar', () => {

@@ -113,6 +113,25 @@ describe('ControladorGet', () => {
     .expect(HttpStatus.CREATED)
   })
 
+  it('Deberia registrar un ticket con dias festivos', async () => {
+    let ticket = {
+      "tipoVehiculo": 0,
+      "idPlan": 1,
+      "documentoUsuario":"1126705117",
+      "fechaIngreso": "2021-09-06T13:20:55.883Z",
+      "matricula":"ABC123"
+    }
+    repositoryMock.findOne.mockReturnValue(ticket);
+    repositoryMock.save.mockReturnValue({id: 1});
+    daoPlanes.valorAPagarPorPlan.returns(Promise.resolve(8200));
+    daoDiasFestivos.cantidadDiasFestivos.returns([{day:0},{day:1}])
+    const response = await request(app.getHttpServer())
+    .post('/parking').send(ticket)
+    .expect(HttpStatus.CREATED)
+
+    console.log(response.body)
+  })
+
   it('Deberia retornar error por tipo plan', async () => {
     let ticket = {
       "tipoVehiculo": 0,
