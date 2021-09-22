@@ -12,7 +12,7 @@ export class ManejadorMostrarTicket {
   async ejecutar(id: number): Promise<TicketSearchDto>{
     let ticket =  await this._daoParking.buscar(id);
     if(!ticket[0].fechaSalida) {
-      ticket[0].extraValorPagar = this.servicioFechas.calcularDemora(new Date(),ticket[0].fechaSalidaSugerida)
+      ticket[0].extraValorPagar = this.servicioFechas.calcularDemora(new Date(),ticket[0].fechaSalidaSugerida);
     }
     return ticket;
   }

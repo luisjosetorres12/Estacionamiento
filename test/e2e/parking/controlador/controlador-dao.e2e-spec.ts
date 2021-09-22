@@ -14,10 +14,7 @@ import { ManejadorListarTickets } from 'src/aplicacion/parking/consulta/listar-t
 import { FiltroExcepcionesDeNegocio } from 'src/infraestructura/excepciones/filtro-excepciones-negocio';
 import { ComandoRegistrarTicket } from 'src/aplicacion/parking/comando/registrar-ticket.comando';
 import { ManejadorMostrarTicket } from 'src/aplicacion/parking/consulta/mostrar-ticket.manejador';
-import { ParkingDto } from 'src/aplicacion/parking/consulta/dto/parking.dto';
-import { parkingEntidadPost, parkingModeloPost, parkingEntidadResultPost, parkingEntidadResultPostObject } from 'test/util/parking.entidad';
 import { EntityManager } from 'typeorm';
-import { ParkingEntidad } from 'src/infraestructura/parking/entidad/parking.entidad';
 import { ManejadorFiltrarTickets } from 'src/aplicacion/parking/consulta/filtrar-tickets.manejador';
 import * as typeorm from 'typeorm';
 import { ServicioActualizarTicket } from 'src/dominio/parking/servicio/servicio-actualizar-ticket';
@@ -153,5 +150,23 @@ describe('ControladorGet', () => {
     .expect(HttpStatus.OK)
   
   expect(response.body.length).toBe(1)
+  })
+
+  it('Deberia buscar un ticket especifio y retornar extra valor a pagar', async () => {
+    const ticket: any[] = [{
+      "tipoVehiculo": 1,
+      "idPlan": 4,
+      "documentoUsuario": "1234567890",
+      "fechaSalidaSugerida":"2021-09-07T15:11:04.972Z",
+      "matricula":"ABC123"
+    }]
+
+    entityManagerStub.query.returns(Promise.resolve(ticket))
+
+    const response = await request(app.getHttpServer())
+    .get('/parking/1')
+    .expect(HttpStatus.OK)
+  expect(response.body.length).toBe(1)
+  expect(response.body[0].extraValorPagar).not.toBe(undefined)
   })
 })

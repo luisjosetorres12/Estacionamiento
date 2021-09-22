@@ -1,9 +1,10 @@
 import {MigrationInterface, QueryRunner} from 'typeorm';
-
+//@ts-ignore
 export class createValorPagarTabla1631201272430 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('CREATE TABLE `planes` (`id` int NOT NULL AUTO_INCREMENT, `valorPagar` float, `nombrePlan` varchar(50), `idPlan` int, `tipoVehiculo` int, PRIMARY KEY (`id`)) ENGINE=InnoDB', undefined);
+        await queryRunner.query(`CREATE TABLE planes (id int NOT NULL AUTO_INCREMENT, valorPagar float, 
+            nombrePlan varchar(50), idPlan int, tipoVehiculo int, PRIMARY KEY (id)) ENGINE=InnoDB`, undefined);
 
         const TIPO_PLAN = [{name: '30 Minutos Moto',idPlan: 0, tipoVehiculo: 0, value:3000},
                           {name: '30 Minutos Carro',idPlan: 0, tipoVehiculo: 1, value:5000},
@@ -16,9 +17,9 @@ export class createValorPagarTabla1631201272430 implements MigrationInterface {
                           {name: 'Mes Moto', idPlan: 4, tipoVehiculo: 0,value:120000},
                           {name: 'Mes Carro', idPlan: 4, tipoVehiculo: 1,value:180000}
                   ];
-        for (let i = 0; i < TIPO_PLAN.length; i++) {
-            const element = TIPO_PLAN[i];
-            await queryRunner.query(`insert into planes(valorPagar, nombrePlan, idPlan, tipoVehiculo) values(${element.value}, '${element.name}', ${element.idPlan}, ${element.tipoVehiculo})`);
+        for (let element of TIPO_PLAN) {
+            await queryRunner.query(`insert into planes(valorPagar, nombrePlan, idPlan, tipoVehiculo) 
+            values(${element.value}, '${element.name}', ${element.idPlan}, ${element.tipoVehiculo})`);
         }
     }
 

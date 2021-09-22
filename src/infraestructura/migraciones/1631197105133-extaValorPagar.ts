@@ -1,5 +1,5 @@
 import {MigrationInterface, QueryRunner} from 'typeorm';
-
+//@ts-ignore
 export class extaValorPagar1631197105133 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
